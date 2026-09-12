@@ -109,16 +109,37 @@
       justify-content: center;
       background: var(--white);
       padding: 24px;
+      overflow-y: auto;
     }
 
     .auth-card {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       background: var(--white);
       border: var(--border);
       border-radius: var(--radius-lg);
       padding: 40px 32px;
       box-shadow: var(--shadow-sm);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                  box-shadow 0.4s ease;
+      animation: cardEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(16px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .auth-card.shake {
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
     }
 
     .auth-logo {
@@ -134,11 +155,25 @@
       text-align: center;
       color: var(--gray-500);
       font-size: 14px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
+      transition: opacity 0.3s ease;
     }
 
     .auth-field {
       margin-bottom: 16px;
+      overflow: hidden;
+      max-height: 120px;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.3s ease,
+                  margin 0.4s ease;
+      opacity: 1;
+    }
+
+    .auth-field.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0;
+      pointer-events: none;
     }
 
     .auth-field label {
@@ -156,11 +191,12 @@
       border-radius: var(--radius-sm);
       font-size: 15px;
       background: var(--white);
-      transition: border-color 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
 
     .auth-field input:focus {
       border-color: var(--gray-900);
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
     }
 
     .auth-btn {
@@ -172,16 +208,17 @@
       font-weight: 500;
       font-size: 15px;
       margin-top: 8px;
-      transition: background 0.15s ease;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
     .auth-btn:hover { background: var(--gray-800); }
+    .auth-btn:active { transform: scale(0.98); }
     .auth-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .auth-link {
       display: block;
       text-align: center;
-      margin-top: 16px;
+      margin-top: 14px;
       font-size: 14px;
       color: var(--gray-500);
       text-decoration: none;
@@ -189,9 +226,12 @@
       background: none;
       border: none;
       width: 100%;
+      padding: 6px;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
     }
 
-    .auth-link:hover { color: var(--gray-900); }
+    .auth-link:hover { color: var(--gray-900); background: var(--gray-50); }
 
     .auth-error {
       background: #fef2f2;
@@ -201,6 +241,23 @@
       border-radius: var(--radius-sm);
       font-size: 13px;
       margin-bottom: 16px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .auth-success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      margin-bottom: 16px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ---------- MAIN LAYOUT ---------- */
@@ -213,7 +270,7 @@
 
     /* ---------- SIDEBAR ---------- */
     .sidebar {
-      width: 240px;
+      width: 250px;
       background: var(--gray-50);
       border-right: var(--border);
       display: flex;
@@ -241,13 +298,14 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+      overflow-y: auto;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       border-radius: var(--radius-sm);
       font-size: 14px;
       font-weight: 400;
@@ -284,7 +342,7 @@
     }
 
     .sidebar-footer {
-      padding: 16px;
+      padding: 12px 16px 16px;
       border-top: var(--border);
     }
 
@@ -295,23 +353,6 @@
       word-break: break-all;
     }
 
-    .sidebar-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      color: var(--gray-600);
-      width: 100%;
-      text-align: left;
-    }
-
-    .sidebar-btn:hover {
-      background: var(--gray-200);
-      color: var(--gray-900);
-    }
-
     /* ---------- MAIN CONTENT ---------- */
     .main-content {
       flex: 1;
@@ -319,6 +360,7 @@
       flex-direction: column;
       overflow: hidden;
       background: var(--white);
+      position: relative;
     }
 
     .topbar {
@@ -330,6 +372,7 @@
       gap: 12px;
       flex-shrink: 0;
       background: var(--white);
+      z-index: 5;
     }
 
     .menu-btn {
@@ -345,21 +388,20 @@
       font-weight: 500;
       color: var(--gray-900);
       flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .search-toggle-btn {
-      padding: 6px;
-      border-radius: 6px;
-    }
-
-    .search-toggle-btn:hover { background: var(--gray-100); }
-
+    .search-toggle-btn,
     .new-note-top-btn {
       padding: 6px;
       border-radius: 6px;
+      color: var(--gray-600);
     }
 
-    .new-note-top-btn:hover { background: var(--gray-100); }
+    .search-toggle-btn:hover,
+    .new-note-top-btn:hover { background: var(--gray-100); color: var(--gray-900); }
 
     /* ---------- SEARCH BAR ---------- */
     .search-bar {
@@ -367,11 +409,10 @@
       border-bottom: var(--border);
       display: none;
       background: var(--white);
+      animation: fadeIn 0.2s ease;
     }
 
-    .search-bar.visible {
-      display: block;
-    }
+    .search-bar.visible { display: block; }
 
     .search-input-wrap {
       display: flex;
@@ -392,16 +433,14 @@
       flex-shrink: 0;
     }
 
-    .search-input-wrap input {
-      font-size: 14px;
-      background: transparent;
-    }
+    .search-input-wrap input { font-size: 14px; }
 
-    /* ---------- CONTENT AREA (LIST + EDITOR) ---------- */
+    /* ---------- CONTENT AREA ---------- */
     .content-area {
       flex: 1;
       display: flex;
       overflow: hidden;
+      position: relative;
     }
 
     /* ---------- NOTE LIST ---------- */
@@ -429,13 +468,8 @@
       position: relative;
     }
 
-    .note-list-item:hover {
-      background: var(--gray-50);
-    }
-
-    .note-list-item.selected {
-      background: var(--gray-100);
-    }
+    .note-list-item:hover { background: var(--gray-50); }
+    .note-list-item.selected { background: var(--gray-100); }
 
     .note-list-item.selected::before {
       content: '';
@@ -496,9 +530,10 @@
     .note-item-trash-actions button {
       font-size: 12px;
       color: var(--gray-500);
-      padding: 2px 8px;
+      padding: 3px 10px;
       border: var(--border);
       border-radius: 4px;
+      background: var(--white);
     }
 
     .note-item-trash-actions button:hover {
@@ -538,6 +573,7 @@
       height: 6px;
       border-radius: 50%;
       background: var(--gray-300);
+      transition: background 0.2s ease;
     }
 
     .editor-status-dot.saving { background: #eab308; }
@@ -555,9 +591,7 @@
       color: var(--gray-900);
     }
 
-    .editor-action-btn.active {
-      color: #eab308;
-    }
+    .editor-action-btn.active { color: #eab308; }
 
     .editor-body {
       flex: 1;
@@ -574,11 +608,10 @@
       padding: 0 0 8px;
       color: var(--gray-900);
       border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease;
     }
 
-    .editor-title-input:focus {
-      border-bottom-color: var(--gray-200);
-    }
+    .editor-title-input:focus { border-bottom-color: var(--gray-200); }
 
     .editor-textarea {
       flex: 1;
@@ -591,9 +624,7 @@
       overflow-y: auto;
     }
 
-    .editor-textarea:focus {
-      color: var(--gray-900);
-    }
+    .editor-textarea:focus { color: var(--gray-900); }
 
     /* ---------- EMPTY STATES ---------- */
     .empty-state {
@@ -628,6 +659,115 @@
       max-width: 260px;
     }
 
+    /* ---------- SETTINGS PAGE ---------- */
+    .settings-page {
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      animation: slideInRight 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 56px;
+      border-bottom: var(--border);
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .settings-back-btn {
+      padding: 8px;
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    .settings-back-btn:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .settings-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    .settings-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 0;
+    }
+
+    .settings-group {
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .settings-group-label {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--gray-400);
+      padding: 12px 16px 6px;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      color: var(--gray-700);
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s ease;
+      text-decoration: none;
+    }
+
+    .settings-item:hover {
+      background: var(--gray-50);
+      color: var(--gray-900);
+    }
+
+    .settings-item svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--gray-500);
+      stroke-width: 1.8;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .settings-item.danger {
+      color: #dc2626;
+    }
+
+    .settings-item.danger svg { stroke: #dc2626; }
+
+    .settings-item.danger:hover {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .settings-item-arrow {
+      margin-left: auto;
+      stroke: var(--gray-300) !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+
     /* ---------- TOAST ---------- */
     .toast-container {
       position: fixed;
@@ -654,6 +794,9 @@
       animation: toastIn 0.3s ease;
       pointer-events: auto;
       white-space: nowrap;
+      max-width: 90vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     @keyframes toastIn {
@@ -683,16 +826,14 @@
       animation: spin 0.7s linear infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .loading-text {
       font-size: 14px;
       color: var(--gray-500);
     }
 
-    /* ---------- MOBILE DRAWER OVERLAY ---------- */
+    /* ---------- DRAWER OVERLAY ---------- */
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -701,9 +842,7 @@
       display: none;
     }
 
-    .drawer-overlay.visible {
-      display: block;
-    }
+    .drawer-overlay.visible { display: block; }
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 768px) {
@@ -713,17 +852,13 @@
         left: 0;
         bottom: 0;
         transform: translateX(-100%);
-        width: 260px;
+        width: 270px;
         box-shadow: var(--shadow-md);
       }
 
-      .sidebar.open {
-        transform: translateX(0);
-      }
+      .sidebar.open { transform: translateX(0); }
 
-      .menu-btn {
-        display: inline-flex;
-      }
+      .menu-btn { display: inline-flex; }
 
       .note-list-panel {
         width: 100%;
@@ -734,9 +869,7 @@
         background: var(--white);
       }
 
-      .note-list-panel.hidden-mobile {
-        display: none;
-      }
+      .note-list-panel.hidden-mobile { display: none; }
 
       .editor-panel {
         position: absolute;
@@ -745,58 +878,33 @@
         background: var(--white);
       }
 
-      .editor-panel.hidden-mobile {
-        display: none;
-      }
+      .editor-panel.hidden-mobile { display: none; }
 
       .content-area {
         position: relative;
         overflow: hidden;
       }
 
-      .editor-body {
-        padding: 16px;
-      }
-
-      .editor-title-input {
-        font-size: 20px;
-      }
+      .editor-body { padding: 16px; }
+      .editor-title-input { font-size: 20px; }
     }
 
     @media (min-width: 769px) {
-      .note-list-panel.hidden-mobile {
-        display: flex !important;
-      }
-
-      .editor-panel.hidden-mobile {
-        display: flex !important;
-      }
-
-      .drawer-overlay {
-        display: none !important;
-      }
+      .note-list-panel.hidden-mobile { display: flex !important; }
+      .editor-panel.hidden-mobile { display: flex !important; }
+      .drawer-overlay { display: none !important; }
     }
 
     /* ---------- SCROLLBAR ---------- */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb {
       background: var(--gray-200);
       border-radius: 3px;
     }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gray-300); }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--gray-300);
-    }
-
-    /* ---------- DELETE CONFIRM DIALOG ---------- */
+    /* ---------- CONFIRM DIALOG ---------- */
     .confirm-overlay {
       position: fixed;
       inset: 0;
@@ -806,16 +914,18 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
+      animation: fadeIn 0.2s ease;
     }
 
     .confirm-dialog {
       background: var(--white);
       border-radius: var(--radius-md);
       padding: 24px;
-      max-width: 360px;
+      max-width: 380px;
       width: 100%;
       box-shadow: var(--shadow-md);
       border: var(--border);
+      animation: cardEnter 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .confirm-dialog h3 {
@@ -828,6 +938,7 @@
       font-size: 14px;
       color: var(--gray-500);
       margin-bottom: 20px;
+      line-height: 1.5;
     }
 
     .confirm-actions {
@@ -848,18 +959,14 @@
       color: var(--gray-700);
     }
 
-    .confirm-cancel:hover {
-      background: var(--gray-200);
-    }
+    .confirm-cancel:hover { background: var(--gray-200); }
 
     .confirm-delete {
       background: #ef4444;
       color: var(--white);
     }
 
-    .confirm-delete:hover {
-      background: #dc2626;
-    }
+    .confirm-delete:hover { background: #dc2626; }
   </style>
 </head>
 <body>
@@ -871,11 +978,16 @@
 
   <!-- Auth screen -->
   <div id="authScreen" class="auth-wrapper hidden">
-    <div class="auth-card">
+    <div class="auth-card" id="authCard">
       <div class="auth-logo">Notes</div>
       <div class="auth-sub" id="authSubtitle">Sign in to your account</div>
       <div id="authError" class="auth-error hidden"></div>
       <form id="authForm" autocomplete="on">
+        <!-- Name field (only shown in register mode) -->
+        <div class="auth-field collapsed" id="nameField">
+          <label for="authName">Full Name</label>
+          <input type="text" id="authName" placeholder="Your name" autocomplete="name">
+        </div>
         <div class="auth-field">
           <label for="authEmail">Email</label>
           <input type="email" id="authEmail" placeholder="you@example.com" required autocomplete="email">
@@ -884,7 +996,8 @@
           <label for="authPassword">Password</label>
           <input type="password" id="authPassword" placeholder="Enter password" required autocomplete="current-password">
         </div>
-        <div class="auth-field hidden" id="confirmPasswordField">
+        <!-- Confirm password (only shown in register mode) -->
+        <div class="auth-field collapsed" id="confirmPasswordField">
           <label for="authConfirmPassword">Confirm Password</label>
           <input type="password" id="authConfirmPassword" placeholder="Confirm password" autocomplete="new-password">
         </div>
@@ -918,13 +1031,13 @@
           Recently Deleted
           <span class="nav-count" id="countTrash">0</span>
         </button>
+        <button class="nav-item" id="navSettings">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Settings
+        </button>
       </nav>
       <div class="sidebar-footer">
         <div class="user-email" id="sidebarEmail"></div>
-        <button class="sidebar-btn" id="signOutBtn">
-          <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Sign Out
-        </button>
       </div>
     </aside>
 
@@ -995,6 +1108,47 @@
           </div>
         </div>
       </div>
+
+      <!-- Settings page (slides over content area) -->
+      <div class="settings-page hidden" id="settingsPage">
+        <div class="settings-header">
+          <button class="settings-back-btn" id="settingsBackBtn" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="settings-title">Settings</div>
+        </div>
+        <div class="settings-body">
+          <div class="settings-group">
+            <div class="settings-group-label">Support</div>
+            <a class="settings-item" href="mailto:support.stardustofficial@gmail.com" id="supportLink">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              Customer Support
+              <svg class="settings-item-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="settings-item" href="privacy.html" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Privacy Policy
+              <svg class="settings-item-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="settings-item" href="terms.html" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+              Terms of Service
+              <svg class="settings-item-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <div class="settings-group">
+            <div class="settings-group-label">Account</div>
+            <button class="settings-item" id="settingsLogoutBtn">
+              <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Log Out
+            </button>
+            <button class="settings-item danger" id="settingsDeleteAccountBtn">
+              <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke-linecap="round"/></svg>
+              Delete Account
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1025,7 +1179,8 @@
       signOut,
       onAuthStateChanged,
       sendPasswordResetEmail,
-      updateProfile
+      updateProfile,
+      deleteUser
     } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
     import {
       getDatabase,
@@ -1037,11 +1192,9 @@
       onValue,
       query,
       orderByChild,
-      serverTimestamp,
-      get
+      serverTimestamp
     } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
-    // Your exact Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAhdpWKUAlOOy6FDxLqGDMjQBBn_Jus8d4",
       authDomain: "formatter-5f3d6.firebaseapp.com",
@@ -1060,8 +1213,7 @@
     // ============================================================
     // IMPORTANT: Firebase Realtime Database Security Rules
     // ============================================================
-    // To keep each user's notes private, you MUST configure rules in the
-    // Firebase Console under Realtime Database > Rules. Example:
+    // Configure these in Firebase Console > Realtime Database > Rules:
     //
     // {
     //   "rules": {
@@ -1073,20 +1225,18 @@
     //     }
     //   }
     // }
-    //
-    // Without these rules, your data is exposed or inaccessible.
     // ============================================================
 
     // ============================================================
     // GLOBAL STATE
     // ============================================================
     let currentUser = null;
-    let notes = [];            // in-memory notes array
+    let notes = [];
     let currentNoteId = null;
-    let currentSection = 'all'; // 'all' | 'favorites' | 'trash'
+    let currentSection = 'all';
     let searchTerm = '';
     let unsubscribeNotes = null;
-    let authMode = 'login';    // 'login' | 'register'
+    let authMode = 'login';
     let saveTimeout = null;
     let isSaving = false;
     let pendingSave = false;
@@ -1099,10 +1249,13 @@
     const loadingOverlay = $('loadingOverlay');
     const authScreen = $('authScreen');
     const mainApp = $('mainApp');
+    const authCard = $('authCard');
     const authForm = $('authForm');
+    const authName = $('authName');
     const authEmail = $('authEmail');
     const authPassword = $('authPassword');
     const authConfirmPassword = $('authConfirmPassword');
+    const nameField = $('nameField');
     const confirmPasswordField = $('confirmPasswordField');
     const authSubmitBtn = $('authSubmitBtn');
     const authError = $('authError');
@@ -1116,11 +1269,11 @@
     const navAll = $('navAll');
     const navFav = $('navFav');
     const navTrash = $('navTrash');
+    const navSettings = $('navSettings');
     const countAll = $('countAll');
     const countFav = $('countFav');
     const countTrash = $('countTrash');
     const sidebarEmail = $('sidebarEmail');
-    const signOutBtn = $('signOutBtn');
 
     const topbarTitle = $('topbarTitle');
     const searchToggleBtn = $('searchToggleBtn');
@@ -1135,7 +1288,6 @@
     const emptyStateDesc = $('emptyStateDesc');
 
     const editorPanel = $('editorPanel');
-    const editorHeader = $('editorHeader');
     const backToListBtn = $('backToListBtn');
     const favToggleBtn = $('favToggleBtn');
     const deleteNoteBtn = $('deleteNoteBtn');
@@ -1145,6 +1297,11 @@
     const editorTitle = $('editorTitle');
     const editorContent = $('editorContent');
     const editorEmptyState = $('editorEmptyState');
+
+    const settingsPage = $('settingsPage');
+    const settingsBackBtn = $('settingsBackBtn');
+    const settingsLogoutBtn = $('settingsLogoutBtn');
+    const settingsDeleteAccountBtn = $('settingsDeleteAccountBtn');
 
     const toastContainer = $('toastContainer');
     const confirmOverlay = $('confirmOverlay');
@@ -1171,11 +1328,23 @@
     function showAuthError(message) {
       authError.textContent = message;
       authError.classList.remove('hidden');
+      authCard.classList.add('shake');
+      setTimeout(() => authCard.classList.remove('shake'), 400);
+    }
+
+    function showAuthSuccess(message) {
+      authError.className = 'auth-success';
+      authError.textContent = message;
+      authError.classList.remove('hidden');
+      setTimeout(() => {
+        authError.classList.add('hidden');
+        authError.className = 'auth-error hidden';
+      }, 4000);
     }
 
     function hideAuthError() {
       authError.textContent = '';
-      authError.classList.add('hidden');
+      authError.className = 'auth-error hidden';
     }
 
     function formatDate(timestamp) {
@@ -1258,25 +1427,58 @@
       authSubtitle.textContent = 'Sign in to your account';
       authSubmitBtn.textContent = 'Sign In';
       switchAuthModeBtn.textContent = "Don't have an account? Sign up";
-      confirmPasswordField.classList.add('hidden');
+      // Collapse name & confirm password fields
+      nameField.classList.add('collapsed');
+      confirmPasswordField.classList.add('collapsed');
       authConfirmPassword.required = false;
+      authName.required = false;
+      authPassword.autocomplete = 'current-password';
+    }
+
+    function switchToRegister() {
+      authMode = 'register';
+      hideAuthError();
+      authSubtitle.style.opacity = '0';
+      setTimeout(() => {
+        authSubtitle.textContent = 'Create your new account';
+        authSubtitle.style.opacity = '1';
+      }, 150);
+      authSubmitBtn.textContent = 'Create Account';
+      switchAuthModeBtn.textContent = 'Already have an account? Sign in';
+      // Expand name & confirm password fields
+      nameField.classList.remove('collapsed');
+      confirmPasswordField.classList.remove('collapsed');
+      authConfirmPassword.required = true;
+      authName.required = true;
+      authPassword.autocomplete = 'new-password';
+      // Focus name field after animation
+      setTimeout(() => authName.focus(), 400);
+    }
+
+    function switchToLogin() {
+      authMode = 'login';
+      hideAuthError();
+      authSubtitle.style.opacity = '0';
+      setTimeout(() => {
+        authSubtitle.textContent = 'Sign in to your account';
+        authSubtitle.style.opacity = '1';
+      }, 150);
+      authSubmitBtn.textContent = 'Sign In';
+      switchAuthModeBtn.textContent = "Don't have an account? Sign up";
+      // Collapse name & confirm password fields
+      nameField.classList.add('collapsed');
+      confirmPasswordField.classList.add('collapsed');
+      authConfirmPassword.required = false;
+      authName.required = false;
+      authPassword.autocomplete = 'current-password';
+      setTimeout(() => authEmail.focus(), 400);
     }
 
     switchAuthModeBtn.addEventListener('click', () => {
-      authMode = authMode === 'login' ? 'register' : 'login';
-      hideAuthError();
-      if (authMode === 'register') {
-        authSubtitle.textContent = 'Create a new account';
-        authSubmitBtn.textContent = 'Create Account';
-        switchAuthModeBtn.textContent = 'Already have an account? Sign in';
-        confirmPasswordField.classList.remove('hidden');
-        authConfirmPassword.required = true;
+      if (authMode === 'login') {
+        switchToRegister();
       } else {
-        authSubtitle.textContent = 'Sign in to your account';
-        authSubmitBtn.textContent = 'Sign In';
-        switchAuthModeBtn.textContent = "Don't have an account? Sign up";
-        confirmPasswordField.classList.add('hidden');
-        authConfirmPassword.required = false;
+        switchToLogin();
       }
     });
 
@@ -1284,6 +1486,7 @@
       e.preventDefault();
       hideAuthError();
 
+      const name = authName.value.trim();
       const email = authEmail.value.trim();
       const password = authPassword.value;
 
@@ -1293,6 +1496,10 @@
       }
 
       if (authMode === 'register') {
+        if (!name) {
+          showAuthError('Please enter your name.');
+          return;
+        }
         const confirm = authConfirmPassword.value;
         if (password !== confirm) {
           showAuthError('Passwords do not match.');
@@ -1313,8 +1520,8 @@
           showToast('Signed in successfully');
         } else {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          await updateProfile(userCredential.user, { displayName: email.split('@')[0] });
-          showToast('Account created');
+          await updateProfile(userCredential.user, { displayName: name });
+          showToast('Account created successfully');
         }
       } catch (error) {
         showAuthError(mapFirebaseError(error.code));
@@ -1328,22 +1535,26 @@
       const email = authEmail.value.trim();
       if (!email) {
         showAuthError('Please enter your email address first.');
+        authEmail.focus();
         return;
       }
+      // Quick email validation
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showAuthError('Please enter a valid email address.');
+        return;
+      }
+      forgotPasswordBtn.disabled = true;
+      const originalText = forgotPasswordBtn.textContent;
+      forgotPasswordBtn.textContent = 'Sending...';
       try {
         await sendPasswordResetEmail(auth, email);
-        showToast('Password reset email sent');
+        showAuthSuccess('Password reset email sent. Check your inbox.');
+        showToast('Reset email sent');
       } catch (error) {
         showAuthError(mapFirebaseError(error.code));
-      }
-    });
-
-    signOutBtn.addEventListener('click', async () => {
-      try {
-        await signOut(auth);
-        showToast('Signed out');
-      } catch (error) {
-        showToast('Unable to sign out');
+      } finally {
+        forgotPasswordBtn.disabled = false;
+        forgotPasswordBtn.textContent = originalText;
       }
     });
 
@@ -1353,7 +1564,6 @@
     function loadUserNotes() {
       if (!currentUser) return;
 
-      // Unsubscribe from previous listener
       if (unsubscribeNotes) {
         unsubscribeNotes();
         unsubscribeNotes = null;
@@ -1383,13 +1593,11 @@
           });
         }
 
-        // Sort by updatedAt descending (most recent first)
         notes.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
 
         updateCounts();
         renderNoteList();
 
-        // If current note was deleted externally, close editor
         if (currentNoteId) {
           const stillExists = notes.find(n => n.id === currentNoteId && !n.deleted);
           if (!stillExists) {
@@ -1420,7 +1628,6 @@
     function getFilteredNotes() {
       let filtered = notes;
 
-      // Section filter
       if (currentSection === 'all') {
         filtered = filtered.filter(n => !n.deleted);
       } else if (currentSection === 'favorites') {
@@ -1429,7 +1636,6 @@
         filtered = filtered.filter(n => n.deleted);
       }
 
-      // Search filter
       if (searchTerm) {
         const term = searchTerm.toLowerCase();
         filtered = filtered.filter(n =>
@@ -1492,7 +1698,6 @@
           ${trashActions}
         `;
 
-        // Click handler for selecting note
         item.addEventListener('click', (e) => {
           if (e.target.closest('[data-action]')) return;
           selectNote(note.id);
@@ -1505,7 +1710,6 @@
           }
         });
 
-        // Trash action buttons
         item.querySelectorAll('[data-action]').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1561,7 +1765,6 @@
       renderNoteList();
       showEditorForNote(note);
 
-      // Mobile: hide list, show editor
       if (window.innerWidth <= 768) {
         noteListPanel.classList.add('hidden-mobile');
         editorPanel.classList.remove('hidden-mobile');
@@ -1572,14 +1775,9 @@
     function showEditorForNote(note) {
       editorEmptyState.classList.add('hidden');
       editorBody.classList.remove('hidden');
-
       editorTitle.value = note.title || '';
       editorContent.value = note.content || '';
-
-      // Update favorite button state
       updateFavButton(note.favorite);
-
-      // Set status to saved
       setSaveStatus('saved');
     }
 
@@ -1622,11 +1820,8 @@
 
     function scheduleSave() {
       if (!currentNoteId || !currentUser) return;
-
       setSaveStatus('saving');
-
       if (saveTimeout) clearTimeout(saveTimeout);
-
       saveTimeout = setTimeout(async () => {
         await performSave();
       }, 800);
@@ -1644,7 +1839,6 @@
       const title = editorTitle.value.trim() || 'Untitled';
       const content = editorContent.value;
 
-      // Update local state immediately
       const note = notes.find(n => n.id === noteId);
       if (note) {
         note.title = title;
@@ -1673,7 +1867,6 @@
       }
     }
 
-    // Editor input listeners
     editorTitle.addEventListener('input', () => {
       if (!currentNoteId) return;
       scheduleSave();
@@ -1690,7 +1883,6 @@
     async function createNewNote() {
       if (!currentUser) return;
 
-      // Check if there's already an empty untitled note
       const existingEmpty = notes.find(n =>
         !n.deleted &&
         (!n.title || n.title === 'Untitled') &&
@@ -1704,7 +1896,6 @@
         return;
       }
 
-      // Create new note with Firebase push key
       const notesRef = ref(db, `users/${currentUser.uid}/notes`);
       const newNoteRef = push(notesRef);
       const noteId = newNoteRef.key;
@@ -1723,8 +1914,6 @@
         currentNoteId = noteId;
         showToast('Note created');
 
-        // The realtime listener will update the list
-        // Select the new note after a brief delay to allow listener to fire
         setTimeout(() => {
           const created = notes.find(n => n.id === noteId);
           if (created) {
@@ -1733,7 +1922,6 @@
           }
         }, 300);
 
-        // Mobile: switch to editor
         if (window.innerWidth <= 768) {
           noteListPanel.classList.add('hidden-mobile');
           editorPanel.classList.remove('hidden-mobile');
@@ -1788,11 +1976,9 @@
         });
         showToast('Note moved to Recently Deleted');
 
-        // Clear editor
         currentNoteId = null;
         showEditorEmptyState();
 
-        // Mobile: back to list
         if (window.innerWidth <= 768) {
           editorPanel.classList.add('hidden-mobile');
           noteListPanel.classList.remove('hidden-mobile');
@@ -1864,7 +2050,6 @@
       }
     }
 
-    // Confirm dialog cancel
     confirmCancelBtn.addEventListener('click', () => {
       confirmOverlay.classList.add('hidden');
     });
@@ -1880,30 +2065,26 @@
     // ============================================================
     function setSection(section) {
       currentSection = section;
+      hideSettings();
 
-      // Update nav active state
       document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
       if (section === 'all') navAll.classList.add('active');
       if (section === 'favorites') navFav.classList.add('active');
       if (section === 'trash') navTrash.classList.add('active');
 
-      // Update topbar title
       const titles = { all: 'All Notes', favorites: 'Favorites', trash: 'Recently Deleted' };
       topbarTitle.textContent = titles[section];
 
-      // Clear search when switching sections
       searchTerm = '';
       searchInput.value = '';
       searchBar.classList.remove('visible');
 
       renderNoteList();
 
-      // On mobile, close sidebar
       if (window.innerWidth <= 768) {
         closeSidebar();
       }
 
-      // Clear editor if switching to trash
       if (section === 'trash') {
         currentNoteId = null;
         showEditorEmptyState();
@@ -1913,6 +2094,75 @@
     navAll.addEventListener('click', () => setSection('all'));
     navFav.addEventListener('click', () => setSection('favorites'));
     navTrash.addEventListener('click', () => setSection('trash'));
+
+    // ============================================================
+    // SETTINGS PAGE
+    // ============================================================
+    function showSettings() {
+      settingsPage.classList.remove('hidden');
+      // Update active nav state
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+      navSettings.classList.add('active');
+      topbarTitle.textContent = 'Settings';
+      // Close sidebar on mobile
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
+    }
+
+    function hideSettings() {
+      settingsPage.classList.add('hidden');
+    }
+
+    navSettings.addEventListener('click', showSettings);
+
+    settingsBackBtn.addEventListener('click', () => {
+      hideSettings();
+      setSection(currentSection);
+    });
+
+    // Support link is a mailto — handled by href
+
+    // Logout from settings
+    settingsLogoutBtn.addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+        showToast('Signed out');
+      } catch (error) {
+        showToast('Unable to sign out');
+      }
+    });
+
+    // Delete account from settings
+    settingsDeleteAccountBtn.addEventListener('click', () => {
+      confirmTitle.textContent = 'Delete account?';
+      confirmMessage.textContent = 'This will permanently delete your account and all your notes. This action cannot be undone.';
+      confirmDeleteBtn.textContent = 'Delete Account';
+      confirmOverlay.classList.remove('hidden');
+      confirmDeleteBtn.onclick = async () => {
+        confirmOverlay.classList.add('hidden');
+        await deleteAccount();
+      };
+    });
+
+    async function deleteAccount() {
+      if (!currentUser) return;
+      try {
+        // First delete all user notes from the database
+        const notesRef = ref(db, `users/${currentUser.uid}/notes`);
+        await remove(notesRef);
+        // Then delete the user account
+        await deleteUser(currentUser);
+        showToast('Account deleted permanently');
+      } catch (error) {
+        console.error('Delete account error:', error);
+        if (error.code === 'auth/requires-recent-login') {
+          showToast('Please sign out and sign in again, then delete your account.');
+        } else {
+          showToast('Could not delete account. Please try again.');
+        }
+      }
+    }
 
     // ============================================================
     // SEARCH
@@ -1964,16 +2214,17 @@
     // KEYBOARD SHORTCUTS
     // ============================================================
     document.addEventListener('keydown', (e) => {
-      // Ctrl/Cmd + S: manually save (in addition to autosave)
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         e.preventDefault();
         if (currentNoteId) performSave();
       }
 
-      // Escape: close search / confirm dialog
       if (e.key === 'Escape') {
-        if (confirmOverlay.classList.contains('hidden') === false) {
+        if (!confirmOverlay.classList.contains('hidden')) {
           confirmOverlay.classList.add('hidden');
+        } else if (!settingsPage.classList.contains('hidden')) {
+          hideSettings();
+          setSection(currentSection);
         } else if (searchBar.classList.contains('visible')) {
           searchBar.classList.remove('visible');
           searchTerm = '';
@@ -1982,7 +2233,6 @@
         }
       }
 
-      // Ctrl/Cmd + N: new note
       if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
         e.preventDefault();
         createNewNote();
@@ -1997,13 +2247,11 @@
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         if (window.innerWidth > 768) {
-          // Desktop: ensure both panels visible
           noteListPanel.classList.remove('hidden-mobile');
           editorPanel.classList.remove('hidden-mobile');
           backToListBtn.style.display = 'none';
           closeSidebar();
         } else {
-          // Mobile: if a note is selected, show editor
           if (currentNoteId) {
             noteListPanel.classList.add('hidden-mobile');
             editorPanel.classList.remove('hidden-mobile');
@@ -2018,29 +2266,17 @@
     });
 
     // ============================================================
-    // INITIALIZATION
+    // ONLINE/OFFLINE HANDLERS
     // ============================================================
-    // The onAuthStateChanged handler manages the loading overlay
-    // and initial UI state. All Firebase operations are scoped
-    // to the authenticated user's UID for data isolation.
-
-    // Optional: handle offline/online
     window.addEventListener('online', () => showToast('Back online'));
     window.addEventListener('offline', () => showToast('You are offline'));
 
-    // Prevent accidental data loss
     window.addEventListener('beforeunload', (e) => {
       if (isSaving) {
         e.preventDefault();
         e.returnValue = '';
       }
     });
-
-    // ============================================================
-    // NOTE: The old localStorage formatter and notes vault have
-    // been completely removed. All notes are now stored securely
-    // in Firebase Realtime Database under users/{uid}/notes.
-    // ============================================================
   </script>
 </body>
 </html>
