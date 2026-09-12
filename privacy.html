@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--gray-900);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ---------- HEADER ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--gray-900);
+      text-decoration: none;
+    }
+
+    .brand-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gray-900);
+      margin-right: 8px;
+      vertical-align: middle;
+      transform: translateY(-1px);
+    }
+
+    .header-spacer { flex: 1; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-500);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .back-link:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 24px 40px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--gray-500);
+      max-width: 640px;
+      line-height: 1.65;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta-item svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--gray-400);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* ---------- LAYOUT ---------- */
+    .layout {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ---------- TABLE OF CONTENTS ---------- */
+    .toc {
+      position: sticky;
+      top: 88px;
+      font-size: 13.5px;
+    }
+
+    .toc-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+    }
+
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      border-left: 1px solid var(--gray-200);
+    }
+
+    .toc li {
+      counter-increment: toc;
+    }
+
+    .toc a {
+      display: block;
+      padding: 6px 0 6px 16px;
+      color: var(--gray-500);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      line-height: 1.4;
+    }
+
+    .toc a::before {
+      content: counter(toc, decimal-leading-zero) "  ";
+      color: var(--gray-300);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .toc a:hover {
+      color: var(--gray-900);
+    }
+
+    .toc a.active {
+      color: var(--gray-900);
+      font-weight: 500;
+      border-left-color: var(--gray-900);
+    }
+
+    /* ---------- CONTENT ---------- */
+    .content section {
+      margin-bottom: 56px;
+      scroll-margin-top: 88px;
+    }
+
+    .content section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-num {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--gray-400);
+      margin-bottom: 6px;
+    }
+
+    .content h2 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin: 28px 0 10px;
+    }
+
+    .content p {
+      color: var(--gray-600);
+      margin-bottom: 14px;
+      font-size: 15.5px;
+    }
+
+    .content p:last-child { margin-bottom: 0; }
+
+    .content ul {
+      list-style: none;
+      margin: 12px 0 18px;
+      padding: 0;
+    }
+
+    .content ul li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 8px;
+      color: var(--gray-600);
+      font-size: 15.5px;
+    }
+
+    .content ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 11px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-300);
+    }
+
+    .content a {
+      color: var(--gray-900);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--gray-300);
+      transition: border-color 0.15s ease;
+    }
+
+    .content a:hover {
+      border-bottom-color: var(--gray-900);
+    }
+
+    .info-box {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      font-size: 14.5px;
+      color: var(--gray-600);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .info-box svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gray-500);
+      stroke-width: 1.8;
+      fill: none;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-box strong {
+      color: var(--gray-900);
+      font-weight: 600;
+    }
+
+    .contact-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 16px;
+    }
+
+    .contact-card h3 {
+      margin-top: 0;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .contact-card p {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-900);
+      color: var(--white) !important;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border: none !important;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .contact-btn:hover {
+      background: var(--gray-800);
+      transform: translateY(-1px);
+    }
+
+    .contact-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .site-footer {
+      border-top: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 13.5px;
+      color: var(--gray-500);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      font-size: 13.5px;
+    }
+
+    .footer-links a {
+      color: var(--gray-500);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gray-900);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; letter-spacing: -0.6px; }
+      .hero { padding: 48px 20px 32px; }
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 32px 20px 64px;
+      }
+      .toc {
+        position: static;
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .toc ol { border-left: none; }
+      .toc a {
+        padding-left: 0;
+        border-left: none;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+      .toc a.active { border-left: none; }
+      .content h2 { font-size: 20px; }
+      .content section { margin-bottom: 44px; }
+      .site-header { padding: 0; }
+      .header-inner { padding: 0 20px; height: 56px; }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 32px 20px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 28px; }
+      .hero-meta { flex-direction: column; gap: 8px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-dot"></span>Notes
+      </a>
+      <div class="header-spacer"></div>
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Notes
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p>Your privacy matters. This policy explains what information Notes collects, how it is used, and the choices you have. We keep things simple and transparent.</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/></svg>
+        Last updated: 12 September 2026
+      </span>
+      <span class="hero-meta-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>
+        Effective immediately
+      </span>
+    </div>
+  </section>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+
+    <!-- TABLE OF CONTENTS -->
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#information">Information We Collect</a></li>
+        <li><a href="#how-we-use">How We Use Information</a></li>
+        <li><a href="#storage">Storage &amp; Security</a></li>
+        <li><a href="#sharing">Data Sharing</a></li>
+        <li><a href="#your-rights">Your Rights</a></li>
+        <li><a href="#cookies">Cookies</a></li>
+        <li><a href="#children">Children's Privacy</a></li>
+        <li><a href="#changes">Changes to This Policy</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ol>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <section id="overview">
+        <span class="section-num">01</span>
+        <h2>Overview</h2>
+        <p>Notes ("we", "our", or "us") is a cloud-based note-taking application. We are committed to protecting your personal information and being transparent about how we handle it.</p>
+        <p>This Privacy Policy applies to the Notes web application and any related services. By using Notes, you agree to the practices described in this policy.</p>
+      </section>
+
+      <section id="information">
+        <span class="section-num">02</span>
+        <h2>Information We Collect</h2>
+        <p>We collect only the minimum information necessary to provide our service. Specifically:</p>
+        <h3>Account Information</h3>
+        <ul>
+          <li>Email address — used for account creation, authentication, and password recovery.</li>
+          <li>Display name — optionally provided during signup, used to personalise your account.</li>
+        </ul>
+        <h3>Note Content</h3>
+        <ul>
+          <li>The titles and content of notes you create within the application.</li>
+          <li>Timestamps associated with note creation and last modification.</li>
+          <li>Your favorite and trash status markers for each note.</li>
+        </ul>
+        <h3>Technical Information</h3>
+        <ul>
+          <li>Basic authentication session tokens handled by Firebase Authentication.</li>
+          <li>Anonymous usage statistics via GoatCounter (page visits only, no personal data).</li>
+        </ul>
+        <div class="info-box">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8h.01M11 12h1v4h1" stroke-linecap="round"/></svg>
+          <div><strong>We do not sell your data.</strong> We do not use your notes for advertising, profiling, or any purpose unrelated to providing the service.</div>
+        </div>
+      </section>
+
+      <section id="how-we-use">
+        <span class="section-num">03</span>
+        <h2>How We Use Information</h2>
+        <p>The information we collect is used strictly to:</p>
+        <ul>
+          <li>Create and manage your account.</li>
+          <li>Authenticate you securely when you sign in.</li>
+          <li>Store, sync, and restore your notes across your devices.</li>
+          <li>Enable features such as favorites, trash, and search.</li>
+          <li>Send password reset emails when you request them.</li>
+          <li>Respond to customer support requests you initiate.</li>
+        </ul>
+        <p>We do not use your data for automated decision-making, marketing, or any form of behavioural analysis.</p>
+      </section>
+
+      <section id="storage">
+        <span class="section-num">04</span>
+        <h2>Storage &amp; Security</h2>
+        <p>Your notes are stored securely using Google Firebase Realtime Database. Data is transmitted over HTTPS and protected by Firebase Authentication.</p>
+        <p>Each user's notes are stored in an isolated location keyed to their unique user ID. Access is restricted by Firebase Security Rules so that no other user can read or modify your notes.</p>
+        <h3>Encryption in Transit</h3>
+        <p>All communication between your browser and Firebase servers is encrypted using industry-standard TLS.</p>
+        <h3>Data Retention</h3>
+        <p>Your notes are retained as long as your account is active. When you delete your account, all associated notes are permanently removed from our database.</p>
+      </section>
+
+      <section id="sharing">
+        <span class="section-num">05</span>
+        <h2>Data Sharing</h2>
+        <p>We do not share, sell, rent, or trade your personal information or note content with any third party, except in the following limited circumstances:</p>
+        <ul>
+          <li><strong>Service providers:</strong> Google Firebase provides authentication and database infrastructure. Their use of data is governed by Google's privacy policy.</li>
+          <li><strong>Legal requirements:</strong> If required by law, we may disclose information in response to valid legal requests.</li>
+        </ul>
+        <p>No advertising networks, analytics companies, or data brokers have access to your notes.</p>
+      </section>
+
+      <section id="your-rights">
+        <span class="section-num">06</span>
+        <h2>Your Rights</h2>
+        <p>You have full control over your data at all times. You can:</p>
+        <ul>
+          <li><strong>Access:</strong> View all your notes at any time from within the app.</li>
+          <li><strong>Edit:</strong> Modify or update any note whenever you wish.</li>
+          <li><strong>Delete:</strong> Move notes to trash, permanently delete individual notes, or delete your entire account and all data.</li>
+          <li><strong>Export:</strong> Copy note content directly from the editor.</li>
+          <li><strong>Portability:</strong> Your notes are stored as plain text and can be copied anywhere.</li>
+        </ul>
+        <p>Deleting your account immediately and permanently removes all your notes and personal information from our systems.</p>
+      </section>
+
+      <section id="cookies">
+        <span class="section-num">07</span>
+        <h2>Cookies &amp; Local Storage</h2>
+        <p>Notes uses browser storage only for essential functionality:</p>
+        <ul>
+          <li><strong>Authentication session:</strong> Firebase uses local storage to keep you signed in between visits.</li>
+          <li><strong>UI preferences:</strong> Optional sidebar state may be remembered locally.</li>
+        </ul>
+        <p>We do not use advertising cookies or cross-site tracking technologies. Your note content is never stored in browser local storage as a source of truth — it lives in Firebase.</p>
+      </section>
+
+      <section id="children">
+        <span class="section-num">08</span>
+        <h2>Children's Privacy</h2>
+        <p>Notes is not directed to children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us so we can remove it.</p>
+      </section>
+
+      <section id="changes">
+        <span class="section-num">09</span>
+        <h2>Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. Material changes will be communicated through the application.</p>
+        <p>Your continued use of Notes after changes are posted constitutes acceptance of the updated policy.</p>
+      </section>
+
+      <section id="contact">
+        <span class="section-num">10</span>
+        <h2>Contact Us</h2>
+        <p>If you have questions, concerns, or requests regarding this Privacy Policy or your data, please reach out to us.</p>
+        <div class="contact-card">
+          <h3>Customer Support</h3>
+          <p>We typically respond within 24–48 hours.</p>
+          <a href="mailto:support.stardustofficial@gmail.com" class="contact-btn">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            support.stardustofficial@gmail.com
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 Notes. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="mailto:support.stardustofficial@gmail.com">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Highlight active TOC section on scroll
+    const sections = document.querySelectorAll('.content section');
+    const tocLinks = document.querySelectorAll('.toc a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>
