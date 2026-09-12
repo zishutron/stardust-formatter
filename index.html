@@ -923,10 +923,11 @@
       display: block;
     }
 
-    .image-card-delete {
+    /* --- Shared style for card action buttons (delete + download) --- */
+    .image-card-delete,
+    .image-card-download {
       position: absolute;
       top: 8px;
-      right: 8px;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -940,10 +941,17 @@
       padding: 0;
     }
 
-    .image-card:hover .image-card-delete { opacity: 1; }
-    .image-card-delete:hover { background: #ef4444; }
+    .image-card-delete { right: 8px; }
+    .image-card-download { left: 8px; }
 
-    .image-card-delete svg {
+    .image-card:hover .image-card-delete,
+    .image-card:hover .image-card-download { opacity: 1; }
+
+    .image-card-delete:hover { background: #ef4444; }
+    .image-card-download:hover { background: var(--gray-900); }
+
+    .image-card-delete svg,
+    .image-card-download svg {
       width: 16px; height: 16px;
       stroke: currentColor;
       stroke-width: 2;
@@ -1147,6 +1155,10 @@
       }
 
       .image-body { padding: 16px; }
+
+      /* Always show action buttons on touch devices */
+      .image-card-delete,
+      .image-card-download { opacity: 1; }
     }
 
     @media (min-width: 769px) {
@@ -1529,17 +1541,7 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // ============================================================
-    // IMGBB API KEY
-    // ============================================================
     const IMGBB_API_KEY = 'c19369b8e27d85b1b1f5a8cde4b50a9b';
-
-    // ============================================================
-    // IMPORTANT: Firebase Realtime Database Security Rules
-    // ============================================================
-    // Configure in Firebase Console > Realtime Database > Rules:
-    // (see message above for the full recommended rules)
-    // ============================================================
 
     // ============================================================
     // GLOBAL STATE
@@ -1548,7 +1550,7 @@
     let notes = [];
     let images = [];
     let currentNoteId = null;
-    let currentSection = 'all'; // 'all' | 'favorites' | 'trash'
+    let currentSection = 'all';
     let searchTerm = '';
     let unsubscribeNotes = null;
     let unsubscribeImages = null;
@@ -1630,7 +1632,6 @@
     const profileCancelBtn = $('profileCancelBtn');
     const profileSaveBtn = $('profileSaveBtn');
 
-    // Image page refs
     const imagePage = $('imagePage');
     const imageBackBtn = $('imageBackBtn');
     const imageUploadBtn = $('imageUploadBtn');
@@ -1928,7 +1929,6 @@
           });
         }
 
-        // Preserve local edits while saving
         incoming.forEach(serverNote => {
           if (serverNote.id === currentNoteId && (isSaving || pendingSave || saveTimeout)) {
             const local = notes.find(n => n.id === serverNote.id);
@@ -2175,7 +2175,6 @@
       }
     }
 
-    // Flush editor changes into in-memory notes array
     function flushEditorToMemory() {
       if (!currentNoteId) return;
       const note = notes.find(n => n.id === currentNoteId);
@@ -2623,19 +2622,66 @@
         card.className = 'image-card';
         card.innerHTML = `
           <img src="${escapeHtml(img.displayUrl)}" alt="Saved image" loading="lazy">
-          <button class="image-card-delete" data-id="${img.id}" aria-label="Delete image">
+          <button class="image-card-download" data-download-id="${img.id}" aria-label="Download image" title="Download">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="image-card-delete" data-id="${img.id}" aria-label="Delete image" title="Delete">
             <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke-linecap="round"/></svg>
           </button>
           <div class="image-card-date">${formatImageDate(img.uploadedAt)}</div>
         `;
 
+        // Delete handler
         card.querySelector('[data-id]').addEventListener('click', (e) => {
           e.stopPropagation();
           confirmDeleteImage(img.id);
         });
 
+        // Download handler
+        card.querySelector('[data-download-id]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          downloadImage(img);
+        });
+
         imageGrid.appendChild(card);
       });
+    }
+
+    // ---------- DOWNLOAD IMAGE ----------
+    async function downloadImage(img) {
+      const url = img.displayUrl || img.url;
+      if (!url) { showToast('Image URL not available'); return; }
+
+      try {
+        showToast('Preparing download...');
+        // Fetch the image as a blob so we can force the browser to download
+        // instead of opening it in a new tab. This works for cross-origin
+        // images (ImgBB serves them with CORS-friendly headers).
+        const response = await fetch(url, { mode: 'cors' });
+        if (!response.ok) throw new Error('Failed to fetch image');
+        const blob = await response.blob();
+
+        // Build a clean filename
+        const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].split('+')[0] : 'jpg';
+        const filename = `notes-image-${img.id}.${ext}`;
+
+        const objectUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = objectUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        // Give the browser a moment to start the download before revoking
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1500);
+
+        showToast('Image downloaded');
+      } catch (error) {
+        console.error('Download error:', error);
+        // Fallback: open in a new tab so the user can long-press / save manually
+        window.open(url, '_blank', 'noopener');
+        showToast('Opened image in new tab');
+      }
     }
 
     // Upload flow
@@ -2646,13 +2692,12 @@
 
     imageFileInput.addEventListener('change', async (e) => {
       const file = e.target.files && e.target.files[0];
-      imageFileInput.value = ''; // reset so same file can be chosen again
+      imageFileInput.value = '';
       if (!file) return;
       if (!file.type.startsWith('image/')) {
         showToast('Please select an image file');
         return;
       }
-      // 10 MB limit (ImgBB free tier accepts up to 32 MB, but we keep it reasonable)
       if (file.size > 10 * 1024 * 1024) {
         showToast('Image must be under 10 MB');
         return;
@@ -2674,7 +2719,6 @@
         const formData = new FormData();
         formData.append('image', file);
 
-        // Use XMLHttpRequest so we can show real progress
         const result = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
           xhr.open('POST', `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`);
@@ -2709,7 +2753,6 @@
         uploadText.textContent = 'Saving to your account...';
         uploadProgressFill.style.width = '100%';
 
-        // Save record in Realtime DB under the user's images node
         const imagesRef = ref(db, `users/${currentUser.uid}/images`);
         const newImageRef = push(imagesRef);
         await set(newImageRef, {
@@ -2747,7 +2790,6 @@
     async function deleteImage(imageId) {
       if (!currentUser) return;
       try {
-        // Remove from Firebase (this is the source of truth for the user's gallery)
         await remove(ref(db, `users/${currentUser.uid}/images/${imageId}`));
         showToast('Image deleted');
       } catch (error) {
