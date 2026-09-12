@@ -236,7 +236,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Legal footer links in auth card */
     .auth-legal {
       margin-top: 24px;
       padding-top: 20px;
@@ -268,9 +267,7 @@
       transition: opacity 0.15s ease;
     }
 
-    .auth-legal-links a:hover {
-      opacity: 0.7;
-    }
+    .auth-legal-links a:hover { opacity: 0.7; }
 
     /* ---------- MAIN LAYOUT ---------- */
     .main-layout {
@@ -750,7 +747,7 @@
       height: 16px !important;
     }
 
-    /* ---------- EDIT PROFILE MODAL ---------- */
+    /* ---------- PROFILE MODAL ---------- */
     .profile-modal-overlay {
       position: fixed;
       inset: 0;
@@ -786,9 +783,7 @@
       margin-bottom: 20px;
     }
 
-    .profile-modal-field {
-      margin-bottom: 16px;
-    }
+    .profile-modal-field { margin-bottom: 16px; }
 
     .profile-modal-field label {
       display: block;
@@ -839,20 +834,201 @@
       font-weight: 500;
     }
 
-    .profile-cancel {
-      background: var(--gray-100);
-      color: var(--gray-700);
-    }
-
+    .profile-cancel { background: var(--gray-100); color: var(--gray-700); }
     .profile-cancel:hover { background: var(--gray-200); }
 
-    .profile-save {
-      background: var(--gray-900);
-      color: var(--white);
-    }
-
+    .profile-save { background: var(--gray-900); color: var(--white); }
     .profile-save:hover { background: var(--gray-800); }
     .profile-save:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ---------- IMAGE PAGE ---------- */
+    .image-page {
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      animation: slideInRight 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .image-header {
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 56px;
+      border-bottom: var(--border);
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .image-header-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    .image-upload-btn {
+      padding: 8px 14px;
+      background: var(--gray-900);
+      color: var(--white);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .image-upload-btn:hover { background: var(--gray-800); }
+    .image-upload-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .image-upload-btn svg {
+      width: 16px; height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .image-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .image-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--gray-100);
+      border: var(--border);
+      aspect-ratio: 1 / 1;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .image-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-card-delete {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s ease, background 0.15s ease;
+      padding: 0;
+    }
+
+    .image-card:hover .image-card-delete { opacity: 1; }
+    .image-card-delete:hover { background: #ef4444; }
+
+    .image-card-delete svg {
+      width: 16px; height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .image-card-date {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    .image-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--gray-400);
+      gap: 12px;
+    }
+
+    .image-empty svg {
+      width: 48px; height: 48px;
+      stroke: var(--gray-300);
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .image-empty h3 {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+
+    .image-empty p {
+      font-size: 14px;
+      color: var(--gray-400);
+      max-width: 260px;
+    }
+
+    /* Uploading overlay inside image page */
+    .upload-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 10;
+    }
+
+    .upload-progress-bar {
+      width: 200px;
+      height: 4px;
+      background: var(--gray-200);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .upload-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gray-900);
+      border-radius: 2px;
+      transition: width 0.2s ease;
+    }
+
+    .upload-text {
+      font-size: 13px;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
 
     /* ---------- TOAST ---------- */
     .toast-container {
@@ -964,6 +1140,13 @@
 
       .editor-body { padding: 16px; }
       .editor-title-input { font-size: 20px; }
+
+      .image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+      }
+
+      .image-body { padding: 16px; }
     }
 
     @media (min-width: 769px) {
@@ -1033,10 +1216,12 @@
 
     .confirm-delete { background: #ef4444; color: var(--white); }
     .confirm-delete:hover { background: #dc2626; }
+
+    /* Hidden file input */
+    #imageFileInput { display: none; }
   </style>
 </head>
 <body>
-  <!-- Loading overlay (visible during auth state check) -->
   <div id="loadingOverlay" class="loading-overlay">
     <div class="spinner"></div>
     <div class="loading-text">Loading Notes...</div>
@@ -1070,7 +1255,6 @@
       <button class="auth-link" id="forgotPasswordBtn">Forgot password?</button>
       <button class="auth-link" id="switchAuthModeBtn">Don't have an account? Sign up</button>
 
-      <!-- Legal links -->
       <div class="auth-legal">
         <span class="auth-legal-text">By continuing, you agree to our</span>
         <div class="auth-legal-links">
@@ -1098,6 +1282,11 @@
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           Favorites
           <span class="nav-count" id="countFav">0</span>
+        </button>
+        <button class="nav-item" id="navImages">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Save Image
+          <span class="nav-count" id="countImages">0</span>
         </button>
         <button class="nav-item" data-section="trash" id="navTrash">
           <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke-linecap="round"/></svg>
@@ -1175,6 +1364,36 @@
         </div>
       </div>
 
+      <!-- Images page -->
+      <div class="image-page hidden" id="imagePage">
+        <div class="image-header">
+          <button class="settings-back-btn" id="imageBackBtn" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="image-header-title">Save Image</div>
+          <button class="image-upload-btn" id="imageUploadBtn">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Upload
+          </button>
+        </div>
+        <div class="image-body" id="imageBody">
+          <div class="image-grid" id="imageGrid"></div>
+          <div class="image-empty hidden" id="imageEmptyState">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <h3>No images yet</h3>
+            <p>Tap "Upload" to add your first image from your gallery.</p>
+          </div>
+        </div>
+        <!-- Upload overlay -->
+        <div class="upload-overlay hidden" id="uploadOverlay">
+          <div class="spinner"></div>
+          <div class="upload-text" id="uploadText">Uploading image...</div>
+          <div class="upload-progress-bar">
+            <div class="upload-progress-fill" id="uploadProgressFill"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Settings page -->
       <div class="settings-page hidden" id="settingsPage">
         <div class="settings-header">
@@ -1184,7 +1403,6 @@
           <div class="settings-title">Settings</div>
         </div>
         <div class="settings-body">
-          <!-- Edit Profile (topmost) -->
           <div class="settings-group">
             <div class="settings-group-label">Profile</div>
             <button class="settings-item" id="editProfileBtn">
@@ -1265,6 +1483,9 @@
     </div>
   </div>
 
+  <!-- Hidden file input for images -->
+  <input type="file" id="imageFileInput" accept="image/*">
+
   <script type="module">
     // ============================================================
     // FIREBASE INITIALIZATION (v9+ modular)
@@ -1309,20 +1530,15 @@
     const db = getDatabase(app);
 
     // ============================================================
+    // IMGBB API KEY
+    // ============================================================
+    const IMGBB_API_KEY = 'c19369b8e27d85b1b1f5a8cde4b50a9b';
+
+    // ============================================================
     // IMPORTANT: Firebase Realtime Database Security Rules
     // ============================================================
-    // Configure these in Firebase Console > Realtime Database > Rules:
-    //
-    // {
-    //   "rules": {
-    //     "users": {
-    //       "$uid": {
-    //         ".read": "$uid === auth.uid",
-    //         ".write": "$uid === auth.uid"
-    //       }
-    //     }
-    //   }
-    // }
+    // Configure in Firebase Console > Realtime Database > Rules:
+    // (see message above for the full recommended rules)
     // ============================================================
 
     // ============================================================
@@ -1330,15 +1546,18 @@
     // ============================================================
     let currentUser = null;
     let notes = [];
+    let images = [];
     let currentNoteId = null;
-    let currentSection = 'all';
+    let currentSection = 'all'; // 'all' | 'favorites' | 'trash'
     let searchTerm = '';
     let unsubscribeNotes = null;
+    let unsubscribeImages = null;
     let authMode = 'login';
     let saveTimeout = null;
     let isSaving = false;
     let pendingSave = false;
     let authResolved = false;
+    let isUploadingImage = false;
 
     // ============================================================
     // DOM REFERENCES
@@ -1369,9 +1588,11 @@
     const navFav = $('navFav');
     const navTrash = $('navTrash');
     const navSettings = $('navSettings');
+    const navImages = $('navImages');
     const countAll = $('countAll');
     const countFav = $('countFav');
     const countTrash = $('countTrash');
+    const countImages = $('countImages');
     const sidebarEmail = $('sidebarEmail');
 
     const topbarTitle = $('topbarTitle');
@@ -1408,6 +1629,17 @@
     const profileEmailInput = $('profileEmailInput');
     const profileCancelBtn = $('profileCancelBtn');
     const profileSaveBtn = $('profileSaveBtn');
+
+    // Image page refs
+    const imagePage = $('imagePage');
+    const imageBackBtn = $('imageBackBtn');
+    const imageUploadBtn = $('imageUploadBtn');
+    const imageGrid = $('imageGrid');
+    const imageEmptyState = $('imageEmptyState');
+    const imageFileInput = $('imageFileInput');
+    const uploadOverlay = $('uploadOverlay');
+    const uploadText = $('uploadText');
+    const uploadProgressFill = $('uploadProgressFill');
 
     const toastContainer = $('toastContainer');
     const confirmOverlay = $('confirmOverlay');
@@ -1476,6 +1708,13 @@
       }
     }
 
+    function formatImageDate(timestamp) {
+      if (!timestamp) return '';
+      const d = new Date(timestamp);
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
     function truncate(text, maxLength = 80) {
       if (!text) return '';
       const stripped = text.replace(/\n/g, ' ').trim();
@@ -1501,12 +1740,6 @@
 
     // ============================================================
     // AUTH STATE HANDLER
-    // ------------------------------------------------------------
-    // Firebase automatically persists the user session in the
-    // browser. When the user returns, onAuthStateChanged fires
-    // immediately with the cached user — meaning the loading
-    // overlay stays up until we know for sure whether they are
-    // logged in, and returning users go straight to Notes.
     // ============================================================
     onAuthStateChanged(auth, async (user) => {
       authResolved = true;
@@ -1518,13 +1751,13 @@
         mainApp.classList.remove('hidden');
         sidebarEmail.textContent = user.email || '';
         await loadUserNotes();
+        loadUserImages();
       } else {
         currentUser = null;
-        if (unsubscribeNotes) {
-          unsubscribeNotes();
-          unsubscribeNotes = null;
-        }
+        if (unsubscribeNotes) { unsubscribeNotes(); unsubscribeNotes = null; }
+        if (unsubscribeImages) { unsubscribeImages(); unsubscribeImages = null; }
         notes = [];
+        images = [];
         currentNoteId = null;
         mainApp.classList.add('hidden');
         authScreen.classList.remove('hidden');
@@ -1532,8 +1765,6 @@
       }
     });
 
-    // Fallback: if for some reason onAuthStateChanged is slow,
-    // hide the loading overlay after 3 seconds max.
     setTimeout(() => {
       if (!authResolved) {
         loadingOverlay.classList.add('hidden');
@@ -1629,7 +1860,6 @@
         } else {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           await updateProfile(userCredential.user, { displayName: name });
-          // Also store the name in Realtime DB for cross-device consistency
           await set(ref(db, `users/${userCredential.user.uid}/profile`), {
             displayName: name,
             email: email,
@@ -1682,11 +1912,11 @@
       unsubscribeNotes = onValue(notesQuery, (snapshot) => {
         loadingOverlay.classList.add('hidden');
         const data = snapshot.val();
-        notes = [];
+        const incoming = [];
 
         if (data) {
           Object.entries(data).forEach(([id, note]) => {
-            notes.push({
+            incoming.push({
               id,
               title: note.title || '',
               content: note.content || '',
@@ -1698,6 +1928,18 @@
           });
         }
 
+        // Preserve local edits while saving
+        incoming.forEach(serverNote => {
+          if (serverNote.id === currentNoteId && (isSaving || pendingSave || saveTimeout)) {
+            const local = notes.find(n => n.id === serverNote.id);
+            if (local) {
+              serverNote.title = local.title;
+              serverNote.content = local.content;
+            }
+          }
+        });
+
+        notes = incoming;
         notes.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
         updateCounts();
         renderNoteList();
@@ -1716,6 +1958,43 @@
       });
     }
 
+    // ============================================================
+    // IMAGES LOADING (REALTIME)
+    // ============================================================
+    function loadUserImages() {
+      if (!currentUser) return;
+      if (unsubscribeImages) { unsubscribeImages(); unsubscribeImages = null; }
+
+      const imagesRef = ref(db, `users/${currentUser.uid}/images`);
+      const imagesQuery = query(imagesRef, orderByChild('uploadedAt'));
+
+      unsubscribeImages = onValue(imagesQuery, (snapshot) => {
+        const data = snapshot.val();
+        images = [];
+
+        if (data) {
+          Object.entries(data).forEach(([id, img]) => {
+            images.push({
+              id,
+              url: img.url || '',
+              displayUrl: img.displayUrl || img.url || '',
+              deleteUrl: img.deleteUrl || '',
+              uploadedAt: img.uploadedAt || Date.now(),
+              width: img.width || 0,
+              height: img.height || 0,
+            });
+          });
+        }
+
+        images.sort((a, b) => (b.uploadedAt || 0) - (a.uploadedAt || 0));
+        updateCounts();
+        renderImageGrid();
+      }, (error) => {
+        console.error('Images read error:', error);
+        showToast('Your images could not be loaded. Please try again.');
+      });
+    }
+
     function updateCounts() {
       const active = notes.filter(n => !n.deleted);
       const favs = active.filter(n => n.favorite);
@@ -1724,6 +2003,7 @@
       countAll.textContent = active.length;
       countFav.textContent = favs.length;
       countTrash.textContent = trashed.length;
+      countImages.textContent = images.length;
     }
 
     // ============================================================
@@ -1895,6 +2175,18 @@
       }
     }
 
+    // Flush editor changes into in-memory notes array
+    function flushEditorToMemory() {
+      if (!currentNoteId) return;
+      const note = notes.find(n => n.id === currentNoteId);
+      if (!note) return;
+      const title = editorTitle.value.trim() || 'Untitled';
+      const content = editorContent.value;
+      note.title = title;
+      note.content = content;
+      note.updatedAt = Date.now();
+    }
+
     // ============================================================
     // AUTOSAVE
     // ============================================================
@@ -1915,6 +2207,8 @@
 
     async function performSave() {
       if (!currentNoteId || !currentUser) return;
+
+      if (saveTimeout) { clearTimeout(saveTimeout); saveTimeout = null; }
       if (isSaving) { pendingSave = true; return; }
 
       isSaving = true;
@@ -1933,6 +2227,7 @@
         const noteRef = ref(db, `users/${currentUser.uid}/notes/${noteId}`);
         await update(noteRef, { title, content, updatedAt: serverTimestamp() });
         setSaveStatus('saved');
+        renderNoteList();
       } catch (error) {
         console.error('Save error:', error);
         setSaveStatus('error');
@@ -1943,8 +2238,25 @@
       }
     }
 
-    editorTitle.addEventListener('input', () => { if (currentNoteId) scheduleSave(); });
-    editorContent.addEventListener('input', () => { if (currentNoteId) scheduleSave(); });
+    editorTitle.addEventListener('input', () => {
+      if (!currentNoteId) return;
+      const note = notes.find(n => n.id === currentNoteId);
+      if (note) {
+        note.title = editorTitle.value.trim() || 'Untitled';
+        note.updatedAt = Date.now();
+      }
+      scheduleSave();
+    });
+
+    editorContent.addEventListener('input', () => {
+      if (!currentNoteId) return;
+      const note = notes.find(n => n.id === currentNoteId);
+      if (note) {
+        note.content = editorContent.value;
+        note.updatedAt = Date.now();
+      }
+      scheduleSave();
+    });
 
     // ============================================================
     // NEW NOTE
@@ -2107,8 +2419,14 @@
     // SECTION NAVIGATION
     // ============================================================
     function setSection(section) {
+      if (currentNoteId) {
+        flushEditorToMemory();
+        performSave();
+      }
+
       currentSection = section;
       hideSettings();
+      hideImages();
 
       document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
       if (section === 'all') navAll.classList.add('active');
@@ -2140,6 +2458,12 @@
     // SETTINGS PAGE
     // ============================================================
     function showSettings() {
+      if (currentNoteId) {
+        flushEditorToMemory();
+        performSave();
+      }
+      hideImages();
+
       settingsPage.classList.remove('hidden');
       document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
       navSettings.classList.add('active');
@@ -2157,7 +2481,6 @@
       setSection(currentSection);
     });
 
-    // Logout
     settingsLogoutBtn.addEventListener('click', async () => {
       try {
         await signOut(auth);
@@ -2167,10 +2490,9 @@
       }
     });
 
-    // Delete account
     settingsDeleteAccountBtn.addEventListener('click', () => {
       confirmTitle.textContent = 'Delete account?';
-      confirmMessage.textContent = 'This will permanently delete your account and all your notes. This action cannot be undone.';
+      confirmMessage.textContent = 'This will permanently delete your account and all your notes and images. This action cannot be undone.';
       confirmDeleteBtn.textContent = 'Delete Account';
       confirmOverlay.classList.remove('hidden');
       confirmDeleteBtn.onclick = async () => {
@@ -2182,10 +2504,9 @@
     async function deleteAccount() {
       if (!currentUser) return;
       try {
-        const notesRef = ref(db, `users/${currentUser.uid}/notes`);
-        await remove(notesRef);
-        const profileRef = ref(db, `users/${currentUser.uid}/profile`);
-        await remove(profileRef);
+        await remove(ref(db, `users/${currentUser.uid}/notes`));
+        await remove(ref(db, `users/${currentUser.uid}/images`));
+        await remove(ref(db, `users/${currentUser.uid}/profile`));
         await deleteUser(currentUser);
         showToast('Account deleted permanently');
       } catch (error) {
@@ -2233,15 +2554,11 @@
       profileSaveBtn.textContent = 'Saving...';
 
       try {
-        // Update Firebase Auth profile
         await updateProfile(currentUser, { displayName: newName });
-
-        // Update Realtime Database profile record
         await update(ref(db, `users/${currentUser.uid}/profile`), {
           displayName: newName,
           updatedAt: serverTimestamp()
         });
-
         closeProfileModal();
         showToast('Profile updated');
       } catch (error) {
@@ -2253,13 +2570,191 @@
       }
     });
 
-    // Enter key in profile input
     profileNameInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         profileSaveBtn.click();
       }
     });
+
+    // ============================================================
+    // IMAGES PAGE
+    // ============================================================
+    function showImages() {
+      if (currentNoteId) {
+        flushEditorToMemory();
+        performSave();
+      }
+      hideSettings();
+
+      imagePage.classList.remove('hidden');
+      document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+      navImages.classList.add('active');
+      topbarTitle.textContent = 'Save Image';
+      if (window.innerWidth <= 768) closeSidebar();
+
+      renderImageGrid();
+    }
+
+    function hideImages() {
+      imagePage.classList.add('hidden');
+    }
+
+    navImages.addEventListener('click', showImages);
+    imageBackBtn.addEventListener('click', () => {
+      hideImages();
+      setSection(currentSection);
+    });
+
+    function renderImageGrid() {
+      imageGrid.innerHTML = '';
+
+      if (images.length === 0) {
+        imageEmptyState.classList.remove('hidden');
+        imageGrid.classList.add('hidden');
+        return;
+      }
+
+      imageEmptyState.classList.add('hidden');
+      imageGrid.classList.remove('hidden');
+
+      images.forEach(img => {
+        const card = document.createElement('div');
+        card.className = 'image-card';
+        card.innerHTML = `
+          <img src="${escapeHtml(img.displayUrl)}" alt="Saved image" loading="lazy">
+          <button class="image-card-delete" data-id="${img.id}" aria-label="Delete image">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z" stroke-linecap="round"/></svg>
+          </button>
+          <div class="image-card-date">${formatImageDate(img.uploadedAt)}</div>
+        `;
+
+        card.querySelector('[data-id]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          confirmDeleteImage(img.id);
+        });
+
+        imageGrid.appendChild(card);
+      });
+    }
+
+    // Upload flow
+    imageUploadBtn.addEventListener('click', () => {
+      if (isUploadingImage) return;
+      imageFileInput.click();
+    });
+
+    imageFileInput.addEventListener('change', async (e) => {
+      const file = e.target.files && e.target.files[0];
+      imageFileInput.value = ''; // reset so same file can be chosen again
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        showToast('Please select an image file');
+        return;
+      }
+      // 10 MB limit (ImgBB free tier accepts up to 32 MB, but we keep it reasonable)
+      if (file.size > 10 * 1024 * 1024) {
+        showToast('Image must be under 10 MB');
+        return;
+      }
+      await uploadImage(file);
+    });
+
+    async function uploadImage(file) {
+      if (!currentUser) return;
+      if (isUploadingImage) return;
+
+      isUploadingImage = true;
+      imageUploadBtn.disabled = true;
+      uploadOverlay.classList.remove('hidden');
+      uploadText.textContent = 'Uploading image...';
+      uploadProgressFill.style.width = '0%';
+
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        // Use XMLHttpRequest so we can show real progress
+        const result = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`);
+
+          xhr.upload.addEventListener('progress', (ev) => {
+            if (ev.lengthComputable) {
+              const pct = Math.round((ev.loaded / ev.total) * 100);
+              uploadProgressFill.style.width = pct + '%';
+              uploadText.textContent = `Uploading... ${pct}%`;
+            }
+          });
+
+          xhr.addEventListener('load', () => {
+            try {
+              const data = JSON.parse(xhr.responseText);
+              if (xhr.status >= 200 && xhr.status < 300 && data && data.success) {
+                resolve(data.data);
+              } else {
+                reject(new Error((data && data.error && data.error.message) || 'Upload failed'));
+              }
+            } catch (err) {
+              reject(new Error('Invalid response from image host'));
+            }
+          });
+
+          xhr.addEventListener('error', () => reject(new Error('Network error while uploading')));
+          xhr.addEventListener('abort', () => reject(new Error('Upload cancelled')));
+
+          xhr.send(formData);
+        });
+
+        uploadText.textContent = 'Saving to your account...';
+        uploadProgressFill.style.width = '100%';
+
+        // Save record in Realtime DB under the user's images node
+        const imagesRef = ref(db, `users/${currentUser.uid}/images`);
+        const newImageRef = push(imagesRef);
+        await set(newImageRef, {
+          url: result.url,
+          displayUrl: result.display_url || result.url,
+          deleteUrl: result.delete_url || '',
+          width: result.width || 0,
+          height: result.height || 0,
+          uploadedAt: serverTimestamp()
+        });
+
+        showToast('Image saved successfully');
+      } catch (error) {
+        console.error('Image upload error:', error);
+        showToast(error.message || 'Could not upload image. Please try again.');
+      } finally {
+        isUploadingImage = false;
+        imageUploadBtn.disabled = false;
+        uploadOverlay.classList.add('hidden');
+        uploadProgressFill.style.width = '0%';
+      }
+    }
+
+    function confirmDeleteImage(imageId) {
+      confirmTitle.textContent = 'Delete image?';
+      confirmMessage.textContent = 'This image will be permanently removed from your account. This action cannot be undone.';
+      confirmDeleteBtn.textContent = 'Delete';
+      confirmOverlay.classList.remove('hidden');
+      confirmDeleteBtn.onclick = async () => {
+        confirmOverlay.classList.add('hidden');
+        await deleteImage(imageId);
+      };
+    }
+
+    async function deleteImage(imageId) {
+      if (!currentUser) return;
+      try {
+        // Remove from Firebase (this is the source of truth for the user's gallery)
+        await remove(ref(db, `users/${currentUser.uid}/images/${imageId}`));
+        showToast('Image deleted');
+      } catch (error) {
+        console.error('Delete image error:', error);
+        showToast('Could not delete image. Please try again.');
+      }
+    }
 
     // ============================================================
     // SEARCH
@@ -2299,6 +2794,10 @@
     // BACK TO LIST (MOBILE)
     // ============================================================
     backToListBtn.addEventListener('click', () => {
+      if (currentNoteId) {
+        flushEditorToMemory();
+        performSave();
+      }
       noteListPanel.classList.remove('hidden-mobile');
       editorPanel.classList.add('hidden-mobile');
       backToListBtn.style.display = 'none';
@@ -2322,6 +2821,9 @@
           confirmOverlay.classList.add('hidden');
         } else if (!settingsPage.classList.contains('hidden')) {
           hideSettings();
+          setSection(currentSection);
+        } else if (!imagePage.classList.contains('hidden')) {
+          hideImages();
           setSection(currentSection);
         } else if (searchBar.classList.contains('visible')) {
           searchBar.classList.remove('visible');
