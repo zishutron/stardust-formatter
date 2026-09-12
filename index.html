@@ -1751,6 +1751,25 @@
         authScreen.classList.add('hidden');
         mainApp.classList.remove('hidden');
         sidebarEmail.textContent = user.email || '';
+       // ✅ Reset UI to All Notes on every fresh login/signup
+settingsPage.classList.add('hidden');
+imagePage.classList.add('hidden');
+searchBar.classList.remove('visible');
+profileModalOverlay.classList.add('hidden');
+confirmOverlay.classList.add('hidden');
+currentSection = 'all';
+currentNoteId = null;
+searchTerm = '';
+searchInput.value = '';
+notes = [];
+images = [];
+document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+navAll.classList.add('active');
+topbarTitle.textContent = 'All Notes';
+noteListPanel.classList.remove('hidden-mobile');
+editorPanel.classList.add('hidden-mobile');
+backToListBtn.style.display = 'none';
+showEditorEmptyState();
         await loadUserNotes();
         loadUserImages();
       } else {
