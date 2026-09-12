@@ -6,14 +6,10 @@
   <title>Notes — Cloud Notepad</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     /* ---------- RESET & GLOBAL ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --white: #ffffff;
@@ -27,7 +23,6 @@
       --gray-700: #374151;
       --gray-800: #1f2937;
       --gray-900: #111827;
-      --primary: #111827;
       --border: 1px solid #e5e7eb;
       --radius-sm: 8px;
       --radius-md: 12px;
@@ -49,17 +44,6 @@
       -moz-osx-font-smoothing: grayscale;
       overflow: hidden;
     }
-
-    #app {
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      flex-direction: column;
-      background: var(--white);
-    }
-
-    /* ---------- UTILITY ---------- */
-    .hidden { display: none !important; }
 
     button {
       font-family: inherit;
@@ -91,14 +75,11 @@
       width: 100%;
     }
 
-    input::placeholder, textarea::placeholder {
-      color: var(--gray-400);
-    }
+    input::placeholder, textarea::placeholder { color: var(--gray-400); }
 
-    svg {
-      display: block;
-      flex-shrink: 0;
-    }
+    svg { display: block; flex-shrink: 0; }
+
+    .hidden { display: none !important; }
 
     /* ---------- AUTH SCREENS ---------- */
     .auth-wrapper {
@@ -118,10 +99,8 @@
       background: var(--white);
       border: var(--border);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
+      padding: 40px 32px 28px;
       box-shadow: var(--shadow-sm);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                  box-shadow 0.4s ease;
       animation: cardEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -130,9 +109,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .auth-card.shake {
-      animation: shake 0.4s ease;
-    }
+    .auth-card.shake { animation: shake 0.4s ease; }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
@@ -218,10 +195,9 @@
     .auth-link {
       display: block;
       text-align: center;
-      margin-top: 14px;
+      margin-top: 12px;
       font-size: 14px;
       color: var(--gray-500);
-      text-decoration: none;
       cursor: pointer;
       background: none;
       border: none;
@@ -260,6 +236,42 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Legal footer links in auth card */
+    .auth-legal {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--gray-500);
+      line-height: 1.7;
+    }
+
+    .auth-legal-text {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gray-500);
+    }
+
+    .auth-legal-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .auth-legal-links a {
+      color: #000000;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: opacity 0.15s ease;
+    }
+
+    .auth-legal-links a:hover {
+      opacity: 0.7;
+    }
+
     /* ---------- MAIN LAYOUT ---------- */
     .main-layout {
       display: flex;
@@ -280,9 +292,7 @@
       z-index: 40;
     }
 
-    .sidebar-header {
-      padding: 20px 16px 16px;
-    }
+    .sidebar-header { padding: 20px 16px 16px; }
 
     .sidebar-brand {
       font-size: 18px;
@@ -315,10 +325,7 @@
       text-align: left;
     }
 
-    .nav-item:hover {
-      background: var(--gray-200);
-      color: var(--gray-900);
-    }
+    .nav-item:hover { background: var(--gray-200); color: var(--gray-900); }
 
     .nav-item.active {
       background: var(--gray-200);
@@ -375,12 +382,7 @@
       z-index: 5;
     }
 
-    .menu-btn {
-      display: none;
-      padding: 6px;
-      border-radius: 6px;
-    }
-
+    .menu-btn { display: none; padding: 6px; border-radius: 6px; }
     .menu-btn:hover { background: var(--gray-100); }
 
     .topbar-title {
@@ -474,9 +476,7 @@
     .note-list-item.selected::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      left: 0; top: 0; bottom: 0;
       width: 3px;
       background: var(--gray-900);
     }
@@ -509,17 +509,8 @@
       color: var(--gray-400);
     }
 
-    .note-item-fav {
-      color: #eab308;
-      flex-shrink: 0;
-    }
-
-    .note-item-fav svg {
-      width: 12px;
-      height: 12px;
-      fill: currentColor;
-      stroke: none;
-    }
+    .note-item-fav { color: #eab308; flex-shrink: 0; }
+    .note-item-fav svg { width: 12px; height: 12px; fill: currentColor; stroke: none; }
 
     .note-item-trash-actions {
       display: flex;
@@ -569,8 +560,7 @@
     }
 
     .editor-status-dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--gray-300);
       transition: background 0.2s ease;
@@ -640,8 +630,7 @@
     }
 
     .empty-state svg {
-      width: 48px;
-      height: 48px;
+      width: 48px; height: 48px;
       stroke: var(--gray-300);
       stroke-width: 1.5;
       fill: none;
@@ -750,16 +739,9 @@
       flex-shrink: 0;
     }
 
-    .settings-item.danger {
-      color: #dc2626;
-    }
-
+    .settings-item.danger { color: #dc2626; }
     .settings-item.danger svg { stroke: #dc2626; }
-
-    .settings-item.danger:hover {
-      background: #fef2f2;
-      color: #b91c1c;
-    }
+    .settings-item.danger:hover { background: #fef2f2; color: #b91c1c; }
 
     .settings-item-arrow {
       margin-left: auto;
@@ -767,6 +749,110 @@
       width: 16px !important;
       height: 16px !important;
     }
+
+    /* ---------- EDIT PROFILE MODAL ---------- */
+    .profile-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .profile-modal {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 28px 24px 24px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: var(--shadow-md);
+      animation: cardEnter 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .profile-modal h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .profile-modal-sub {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-bottom: 20px;
+    }
+
+    .profile-modal-field {
+      margin-bottom: 16px;
+    }
+
+    .profile-modal-field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+
+    .profile-modal-field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      background: var(--white);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .profile-modal-field input:focus {
+      border-color: var(--gray-900);
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.06);
+    }
+
+    .profile-modal-field input:disabled {
+      background: var(--gray-50);
+      color: var(--gray-500);
+      cursor: not-allowed;
+    }
+
+    .profile-modal-hint {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+
+    .profile-modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .profile-modal-actions button {
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .profile-cancel {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    .profile-cancel:hover { background: var(--gray-200); }
+
+    .profile-save {
+      background: var(--gray-900);
+      color: var(--white);
+    }
+
+    .profile-save:hover { background: var(--gray-800); }
+    .profile-save:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* ---------- TOAST ---------- */
     .toast-container {
@@ -818,8 +904,7 @@
     }
 
     .spinner {
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       border: 2.5px solid var(--gray-200);
       border-top-color: var(--gray-900);
       border-radius: 50%;
@@ -828,10 +913,7 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .loading-text {
-      font-size: 14px;
-      color: var(--gray-500);
-    }
+    .loading-text { font-size: 14px; color: var(--gray-500); }
 
     /* ---------- DRAWER OVERLAY ---------- */
     .drawer-overlay {
@@ -848,9 +930,7 @@
     @media (max-width: 768px) {
       .sidebar {
         position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
+        top: 0; left: 0; bottom: 0;
         transform: translateX(-100%);
         width: 270px;
         box-shadow: var(--shadow-md);
@@ -880,10 +960,7 @@
 
       .editor-panel.hidden-mobile { display: none; }
 
-      .content-area {
-        position: relative;
-        overflow: hidden;
-      }
+      .content-area { position: relative; overflow: hidden; }
 
       .editor-body { padding: 16px; }
       .editor-title-input { font-size: 20px; }
@@ -898,10 +975,7 @@
     /* ---------- SCROLLBAR ---------- */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb {
-      background: var(--gray-200);
-      border-radius: 3px;
-    }
+    ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--gray-300); }
 
     /* ---------- CONFIRM DIALOG ---------- */
@@ -954,23 +1028,15 @@
       font-weight: 500;
     }
 
-    .confirm-cancel {
-      background: var(--gray-100);
-      color: var(--gray-700);
-    }
-
+    .confirm-cancel { background: var(--gray-100); color: var(--gray-700); }
     .confirm-cancel:hover { background: var(--gray-200); }
 
-    .confirm-delete {
-      background: #ef4444;
-      color: var(--white);
-    }
-
+    .confirm-delete { background: #ef4444; color: var(--white); }
     .confirm-delete:hover { background: #dc2626; }
   </style>
 </head>
 <body>
-  <!-- Loading overlay -->
+  <!-- Loading overlay (visible during auth state check) -->
   <div id="loadingOverlay" class="loading-overlay">
     <div class="spinner"></div>
     <div class="loading-text">Loading Notes...</div>
@@ -983,7 +1049,6 @@
       <div class="auth-sub" id="authSubtitle">Sign in to your account</div>
       <div id="authError" class="auth-error hidden"></div>
       <form id="authForm" autocomplete="on">
-        <!-- Name field (only shown in register mode) -->
         <div class="auth-field collapsed" id="nameField">
           <label for="authName">Full Name</label>
           <input type="text" id="authName" placeholder="Your name" autocomplete="name">
@@ -996,7 +1061,6 @@
           <label for="authPassword">Password</label>
           <input type="password" id="authPassword" placeholder="Enter password" required autocomplete="current-password">
         </div>
-        <!-- Confirm password (only shown in register mode) -->
         <div class="auth-field collapsed" id="confirmPasswordField">
           <label for="authConfirmPassword">Confirm Password</label>
           <input type="password" id="authConfirmPassword" placeholder="Confirm password" autocomplete="new-password">
@@ -1005,6 +1069,15 @@
       </form>
       <button class="auth-link" id="forgotPasswordBtn">Forgot password?</button>
       <button class="auth-link" id="switchAuthModeBtn">Don't have an account? Sign up</button>
+
+      <!-- Legal links -->
+      <div class="auth-legal">
+        <span class="auth-legal-text">By continuing, you agree to our</span>
+        <div class="auth-legal-links">
+          <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a>
+          <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1041,12 +1114,9 @@
       </div>
     </aside>
 
-    <!-- Drawer overlay for mobile -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
 
-    <!-- Main content -->
     <div class="main-content">
-      <!-- Top bar -->
       <header class="topbar">
         <button class="menu-btn" id="menuBtn" aria-label="Open menu">
           <svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1060,7 +1130,6 @@
         </button>
       </header>
 
-      <!-- Search bar -->
       <div class="search-bar" id="searchBar">
         <div class="search-input-wrap">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
@@ -1068,9 +1137,7 @@
         </div>
       </div>
 
-      <!-- Content: list + editor -->
       <div class="content-area">
-        <!-- Note list -->
         <div class="note-list-panel" id="noteListPanel">
           <div class="note-list-scroll" id="noteListScroll"></div>
           <div class="empty-state hidden" id="listEmptyState">
@@ -1080,7 +1147,6 @@
           </div>
         </div>
 
-        <!-- Editor -->
         <div class="editor-panel hidden-mobile" id="editorPanel">
           <div class="editor-header" id="editorHeader">
             <button class="editor-action-btn" id="backToListBtn" aria-label="Back to list" style="display:none;">
@@ -1109,7 +1175,7 @@
         </div>
       </div>
 
-      <!-- Settings page (slides over content area) -->
+      <!-- Settings page -->
       <div class="settings-page hidden" id="settingsPage">
         <div class="settings-header">
           <button class="settings-back-btn" id="settingsBackBtn" aria-label="Back">
@@ -1118,9 +1184,19 @@
           <div class="settings-title">Settings</div>
         </div>
         <div class="settings-body">
+          <!-- Edit Profile (topmost) -->
+          <div class="settings-group">
+            <div class="settings-group-label">Profile</div>
+            <button class="settings-item" id="editProfileBtn">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Edit Profile
+              <svg class="settings-item-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
           <div class="settings-group">
             <div class="settings-group-label">Support</div>
-            <a class="settings-item" href="mailto:support.stardustofficial@gmail.com" id="supportLink">
+            <a class="settings-item" href="mailto:support.stardustofficial@gmail.com">
               <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
               Customer Support
               <svg class="settings-item-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1136,6 +1212,7 @@
               <svg class="settings-item-arrow" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
+
           <div class="settings-group">
             <div class="settings-group-label">Account</div>
             <button class="settings-item" id="settingsLogoutBtn">
@@ -1148,6 +1225,27 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="profile-modal-overlay hidden" id="profileModalOverlay">
+    <div class="profile-modal">
+      <h3>Edit Profile</h3>
+      <div class="profile-modal-sub">Update your display name. Your email cannot be changed.</div>
+      <div class="profile-modal-field">
+        <label for="profileNameInput">Full Name</label>
+        <input type="text" id="profileNameInput" placeholder="Your name" maxlength="60">
+      </div>
+      <div class="profile-modal-field">
+        <label for="profileEmailInput">Email</label>
+        <input type="email" id="profileEmailInput" disabled>
+        <div class="profile-modal-hint">Email is used for sign-in and cannot be edited here.</div>
+      </div>
+      <div class="profile-modal-actions">
+        <button class="profile-cancel" id="profileCancelBtn">Cancel</button>
+        <button class="profile-save" id="profileSaveBtn">Save Changes</button>
       </div>
     </div>
   </div>
@@ -1240,6 +1338,7 @@
     let saveTimeout = null;
     let isSaving = false;
     let pendingSave = false;
+    let authResolved = false;
 
     // ============================================================
     // DOM REFERENCES
@@ -1302,6 +1401,13 @@
     const settingsBackBtn = $('settingsBackBtn');
     const settingsLogoutBtn = $('settingsLogoutBtn');
     const settingsDeleteAccountBtn = $('settingsDeleteAccountBtn');
+    const editProfileBtn = $('editProfileBtn');
+
+    const profileModalOverlay = $('profileModalOverlay');
+    const profileNameInput = $('profileNameInput');
+    const profileEmailInput = $('profileEmailInput');
+    const profileCancelBtn = $('profileCancelBtn');
+    const profileSaveBtn = $('profileSaveBtn');
 
     const toastContainer = $('toastContainer');
     const confirmOverlay = $('confirmOverlay');
@@ -1327,6 +1433,7 @@
 
     function showAuthError(message) {
       authError.textContent = message;
+      authError.className = 'auth-error';
       authError.classList.remove('hidden');
       authCard.classList.add('shake');
       setTimeout(() => authCard.classList.remove('shake'), 400);
@@ -1394,9 +1501,17 @@
 
     // ============================================================
     // AUTH STATE HANDLER
+    // ------------------------------------------------------------
+    // Firebase automatically persists the user session in the
+    // browser. When the user returns, onAuthStateChanged fires
+    // immediately with the cached user — meaning the loading
+    // overlay stays up until we know for sure whether they are
+    // logged in, and returning users go straight to Notes.
     // ============================================================
     onAuthStateChanged(auth, async (user) => {
+      authResolved = true;
       loadingOverlay.classList.add('hidden');
+
       if (user) {
         currentUser = user;
         authScreen.classList.add('hidden');
@@ -1417,6 +1532,15 @@
       }
     });
 
+    // Fallback: if for some reason onAuthStateChanged is slow,
+    // hide the loading overlay after 3 seconds max.
+    setTimeout(() => {
+      if (!authResolved) {
+        loadingOverlay.classList.add('hidden');
+        if (!currentUser) authScreen.classList.remove('hidden');
+      }
+    }, 3000);
+
     // ============================================================
     // AUTH FORM LOGIC
     // ============================================================
@@ -1427,7 +1551,6 @@
       authSubtitle.textContent = 'Sign in to your account';
       authSubmitBtn.textContent = 'Sign In';
       switchAuthModeBtn.textContent = "Don't have an account? Sign up";
-      // Collapse name & confirm password fields
       nameField.classList.add('collapsed');
       confirmPasswordField.classList.add('collapsed');
       authConfirmPassword.required = false;
@@ -1445,13 +1568,11 @@
       }, 150);
       authSubmitBtn.textContent = 'Create Account';
       switchAuthModeBtn.textContent = 'Already have an account? Sign in';
-      // Expand name & confirm password fields
       nameField.classList.remove('collapsed');
       confirmPasswordField.classList.remove('collapsed');
       authConfirmPassword.required = true;
       authName.required = true;
       authPassword.autocomplete = 'new-password';
-      // Focus name field after animation
       setTimeout(() => authName.focus(), 400);
     }
 
@@ -1465,7 +1586,6 @@
       }, 150);
       authSubmitBtn.textContent = 'Sign In';
       switchAuthModeBtn.textContent = "Don't have an account? Sign up";
-      // Collapse name & confirm password fields
       nameField.classList.add('collapsed');
       confirmPasswordField.classList.add('collapsed');
       authConfirmPassword.required = false;
@@ -1475,11 +1595,8 @@
     }
 
     switchAuthModeBtn.addEventListener('click', () => {
-      if (authMode === 'login') {
-        switchToRegister();
-      } else {
-        switchToLogin();
-      }
+      if (authMode === 'login') switchToRegister();
+      else switchToLogin();
     });
 
     authForm.addEventListener('submit', async (e) => {
@@ -1496,19 +1613,10 @@
       }
 
       if (authMode === 'register') {
-        if (!name) {
-          showAuthError('Please enter your name.');
-          return;
-        }
+        if (!name) { showAuthError('Please enter your name.'); return; }
         const confirm = authConfirmPassword.value;
-        if (password !== confirm) {
-          showAuthError('Passwords do not match.');
-          return;
-        }
-        if (password.length < 6) {
-          showAuthError('Password should be at least 6 characters.');
-          return;
-        }
+        if (password !== confirm) { showAuthError('Passwords do not match.'); return; }
+        if (password.length < 6) { showAuthError('Password should be at least 6 characters.'); return; }
       }
 
       authSubmitBtn.disabled = true;
@@ -1521,6 +1629,12 @@
         } else {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           await updateProfile(userCredential.user, { displayName: name });
+          // Also store the name in Realtime DB for cross-device consistency
+          await set(ref(db, `users/${userCredential.user.uid}/profile`), {
+            displayName: name,
+            email: email,
+            updatedAt: serverTimestamp()
+          });
           showToast('Account created successfully');
         }
       } catch (error) {
@@ -1533,12 +1647,7 @@
 
     forgotPasswordBtn.addEventListener('click', async () => {
       const email = authEmail.value.trim();
-      if (!email) {
-        showAuthError('Please enter your email address first.');
-        authEmail.focus();
-        return;
-      }
-      // Quick email validation
+      if (!email) { showAuthError('Please enter your email address first.'); authEmail.focus(); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showAuthError('Please enter a valid email address.');
         return;
@@ -1563,11 +1672,7 @@
     // ============================================================
     function loadUserNotes() {
       if (!currentUser) return;
-
-      if (unsubscribeNotes) {
-        unsubscribeNotes();
-        unsubscribeNotes = null;
-      }
+      if (unsubscribeNotes) { unsubscribeNotes(); unsubscribeNotes = null; }
 
       loadingOverlay.classList.remove('hidden');
 
@@ -1594,7 +1699,6 @@
         }
 
         notes.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-
         updateCounts();
         renderNoteList();
 
@@ -1628,13 +1732,9 @@
     function getFilteredNotes() {
       let filtered = notes;
 
-      if (currentSection === 'all') {
-        filtered = filtered.filter(n => !n.deleted);
-      } else if (currentSection === 'favorites') {
-        filtered = filtered.filter(n => !n.deleted && n.favorite);
-      } else if (currentSection === 'trash') {
-        filtered = filtered.filter(n => n.deleted);
-      }
+      if (currentSection === 'all') filtered = filtered.filter(n => !n.deleted);
+      else if (currentSection === 'favorites') filtered = filtered.filter(n => !n.deleted && n.favorite);
+      else if (currentSection === 'trash') filtered = filtered.filter(n => n.deleted);
 
       if (searchTerm) {
         const term = searchTerm.toLowerCase();
@@ -1755,11 +1855,7 @@
     function selectNote(noteId) {
       const note = notes.find(n => n.id === noteId);
       if (!note) return;
-
-      if (note.deleted) {
-        showToast('This note is in Recently Deleted');
-        return;
-      }
+      if (note.deleted) { showToast('This note is in Recently Deleted'); return; }
 
       currentNoteId = noteId;
       renderNoteList();
@@ -1800,39 +1896,26 @@
     }
 
     // ============================================================
-    // AUTOSAVE SYSTEM (DEBOUNCED)
+    // AUTOSAVE
     // ============================================================
     function setSaveStatus(status) {
       statusDot.className = 'editor-status-dot';
-      if (status === 'saving') {
-        statusDot.classList.add('saving');
-        statusText.textContent = 'Saving...';
-      } else if (status === 'saved') {
-        statusDot.classList.add('saved');
-        statusText.textContent = 'Saved';
-      } else if (status === 'error') {
-        statusDot.classList.add('error');
-        statusText.textContent = 'Not saved';
-      } else {
-        statusText.textContent = 'Saved';
-      }
+      if (status === 'saving') { statusDot.classList.add('saving'); statusText.textContent = 'Saving...'; }
+      else if (status === 'saved') { statusDot.classList.add('saved'); statusText.textContent = 'Saved'; }
+      else if (status === 'error') { statusDot.classList.add('error'); statusText.textContent = 'Not saved'; }
+      else { statusText.textContent = 'Saved'; }
     }
 
     function scheduleSave() {
       if (!currentNoteId || !currentUser) return;
       setSaveStatus('saving');
       if (saveTimeout) clearTimeout(saveTimeout);
-      saveTimeout = setTimeout(async () => {
-        await performSave();
-      }, 800);
+      saveTimeout = setTimeout(async () => { await performSave(); }, 800);
     }
 
     async function performSave() {
       if (!currentNoteId || !currentUser) return;
-      if (isSaving) {
-        pendingSave = true;
-        return;
-      }
+      if (isSaving) { pendingSave = true; return; }
 
       isSaving = true;
       const noteId = currentNoteId;
@@ -1848,11 +1931,7 @@
 
       try {
         const noteRef = ref(db, `users/${currentUser.uid}/notes/${noteId}`);
-        await update(noteRef, {
-          title,
-          content,
-          updatedAt: serverTimestamp()
-        });
+        await update(noteRef, { title, content, updatedAt: serverTimestamp() });
         setSaveStatus('saved');
       } catch (error) {
         console.error('Save error:', error);
@@ -1860,22 +1939,12 @@
         showToast('Note could not be saved. Please try again.');
       } finally {
         isSaving = false;
-        if (pendingSave) {
-          pendingSave = false;
-          scheduleSave();
-        }
+        if (pendingSave) { pendingSave = false; scheduleSave(); }
       }
     }
 
-    editorTitle.addEventListener('input', () => {
-      if (!currentNoteId) return;
-      scheduleSave();
-    });
-
-    editorContent.addEventListener('input', () => {
-      if (!currentNoteId) return;
-      scheduleSave();
-    });
+    editorTitle.addEventListener('input', () => { if (currentNoteId) scheduleSave(); });
+    editorContent.addEventListener('input', () => { if (currentNoteId) scheduleSave(); });
 
     // ============================================================
     // NEW NOTE
@@ -1901,12 +1970,8 @@
       const noteId = newNoteRef.key;
 
       const newNote = {
-        title: '',
-        content: '',
-        favorite: false,
-        deleted: false,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        title: '', content: '', favorite: false, deleted: false,
+        createdAt: serverTimestamp(), updatedAt: serverTimestamp()
       };
 
       try {
@@ -1916,10 +1981,7 @@
 
         setTimeout(() => {
           const created = notes.find(n => n.id === noteId);
-          if (created) {
-            selectNote(noteId);
-            editorTitle.focus();
-          }
+          if (created) { selectNote(noteId); editorTitle.focus(); }
         }, 300);
 
         if (window.innerWidth <= 768) {
@@ -1940,7 +2002,6 @@
     // ============================================================
     async function toggleFavorite() {
       if (!currentNoteId || !currentUser) return;
-
       const note = notes.find(n => n.id === currentNoteId);
       if (!note) return;
 
@@ -1962,20 +2023,16 @@
     favToggleBtn.addEventListener('click', toggleFavorite);
 
     // ============================================================
-    // DELETE (MOVE TO TRASH)
+    // DELETE / RESTORE
     // ============================================================
     async function moveToTrash() {
       if (!currentNoteId || !currentUser) return;
-
       try {
         const noteRef = ref(db, `users/${currentUser.uid}/notes/${currentNoteId}`);
         await update(noteRef, {
-          deleted: true,
-          deletedAt: serverTimestamp(),
-          updatedAt: serverTimestamp()
+          deleted: true, deletedAt: serverTimestamp(), updatedAt: serverTimestamp()
         });
         showToast('Note moved to Recently Deleted');
-
         currentNoteId = null;
         showEditorEmptyState();
 
@@ -2002,17 +2059,11 @@
       };
     });
 
-    // ============================================================
-    // RESTORE FROM TRASH
-    // ============================================================
     async function restoreNote(noteId) {
       if (!currentUser) return;
       try {
         const noteRef = ref(db, `users/${currentUser.uid}/notes/${noteId}`);
-        await update(noteRef, {
-          deleted: false,
-          updatedAt: serverTimestamp()
-        });
+        await update(noteRef, { deleted: false, updatedAt: serverTimestamp() });
         showToast('Note restored');
       } catch (error) {
         console.error('Restore error:', error);
@@ -2020,9 +2071,6 @@
       }
     }
 
-    // ============================================================
-    // PERMANENT DELETE
-    // ============================================================
     function confirmPermanentDelete(noteId) {
       confirmTitle.textContent = 'Delete permanently?';
       confirmMessage.textContent = 'This action cannot be undone. The note will be permanently deleted.';
@@ -2050,14 +2098,9 @@
       }
     }
 
-    confirmCancelBtn.addEventListener('click', () => {
-      confirmOverlay.classList.add('hidden');
-    });
-
+    confirmCancelBtn.addEventListener('click', () => confirmOverlay.classList.add('hidden'));
     confirmOverlay.addEventListener('click', (e) => {
-      if (e.target === confirmOverlay) {
-        confirmOverlay.classList.add('hidden');
-      }
+      if (e.target === confirmOverlay) confirmOverlay.classList.add('hidden');
     });
 
     // ============================================================
@@ -2081,9 +2124,7 @@
 
       renderNoteList();
 
-      if (window.innerWidth <= 768) {
-        closeSidebar();
-      }
+      if (window.innerWidth <= 768) closeSidebar();
 
       if (section === 'trash') {
         currentNoteId = null;
@@ -2100,14 +2141,10 @@
     // ============================================================
     function showSettings() {
       settingsPage.classList.remove('hidden');
-      // Update active nav state
       document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
       navSettings.classList.add('active');
       topbarTitle.textContent = 'Settings';
-      // Close sidebar on mobile
-      if (window.innerWidth <= 768) {
-        closeSidebar();
-      }
+      if (window.innerWidth <= 768) closeSidebar();
     }
 
     function hideSettings() {
@@ -2115,15 +2152,12 @@
     }
 
     navSettings.addEventListener('click', showSettings);
-
     settingsBackBtn.addEventListener('click', () => {
       hideSettings();
       setSection(currentSection);
     });
 
-    // Support link is a mailto — handled by href
-
-    // Logout from settings
+    // Logout
     settingsLogoutBtn.addEventListener('click', async () => {
       try {
         await signOut(auth);
@@ -2133,7 +2167,7 @@
       }
     });
 
-    // Delete account from settings
+    // Delete account
     settingsDeleteAccountBtn.addEventListener('click', () => {
       confirmTitle.textContent = 'Delete account?';
       confirmMessage.textContent = 'This will permanently delete your account and all your notes. This action cannot be undone.';
@@ -2148,10 +2182,10 @@
     async function deleteAccount() {
       if (!currentUser) return;
       try {
-        // First delete all user notes from the database
         const notesRef = ref(db, `users/${currentUser.uid}/notes`);
         await remove(notesRef);
-        // Then delete the user account
+        const profileRef = ref(db, `users/${currentUser.uid}/profile`);
+        await remove(profileRef);
         await deleteUser(currentUser);
         showToast('Account deleted permanently');
       } catch (error) {
@@ -2165,13 +2199,75 @@
     }
 
     // ============================================================
+    // EDIT PROFILE MODAL
+    // ============================================================
+    function openProfileModal() {
+      if (!currentUser) return;
+      profileNameInput.value = currentUser.displayName || '';
+      profileEmailInput.value = currentUser.email || '';
+      profileModalOverlay.classList.remove('hidden');
+      setTimeout(() => profileNameInput.focus(), 100);
+    }
+
+    function closeProfileModal() {
+      profileModalOverlay.classList.add('hidden');
+    }
+
+    editProfileBtn.addEventListener('click', openProfileModal);
+    profileCancelBtn.addEventListener('click', closeProfileModal);
+
+    profileModalOverlay.addEventListener('click', (e) => {
+      if (e.target === profileModalOverlay) closeProfileModal();
+    });
+
+    profileSaveBtn.addEventListener('click', async () => {
+      if (!currentUser) return;
+      const newName = profileNameInput.value.trim();
+      if (!newName) {
+        showToast('Please enter a name');
+        profileNameInput.focus();
+        return;
+      }
+
+      profileSaveBtn.disabled = true;
+      profileSaveBtn.textContent = 'Saving...';
+
+      try {
+        // Update Firebase Auth profile
+        await updateProfile(currentUser, { displayName: newName });
+
+        // Update Realtime Database profile record
+        await update(ref(db, `users/${currentUser.uid}/profile`), {
+          displayName: newName,
+          updatedAt: serverTimestamp()
+        });
+
+        closeProfileModal();
+        showToast('Profile updated');
+      } catch (error) {
+        console.error('Profile update error:', error);
+        showToast('Could not update profile. Please try again.');
+      } finally {
+        profileSaveBtn.disabled = false;
+        profileSaveBtn.textContent = 'Save Changes';
+      }
+    });
+
+    // Enter key in profile input
+    profileNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        profileSaveBtn.click();
+      }
+    });
+
+    // ============================================================
     // SEARCH
     // ============================================================
     searchToggleBtn.addEventListener('click', () => {
       searchBar.classList.toggle('visible');
-      if (searchBar.classList.contains('visible')) {
-        searchInput.focus();
-      } else {
+      if (searchBar.classList.contains('visible')) searchInput.focus();
+      else {
         searchTerm = '';
         searchInput.value = '';
         renderNoteList();
@@ -2184,7 +2280,7 @@
     });
 
     // ============================================================
-    // SIDEBAR (MOBILE DRAWER)
+    // SIDEBAR (MOBILE)
     // ============================================================
     function openSidebar() {
       sidebar.classList.add('open');
@@ -2220,7 +2316,9 @@
       }
 
       if (e.key === 'Escape') {
-        if (!confirmOverlay.classList.contains('hidden')) {
+        if (!profileModalOverlay.classList.contains('hidden')) {
+          closeProfileModal();
+        } else if (!confirmOverlay.classList.contains('hidden')) {
           confirmOverlay.classList.add('hidden');
         } else if (!settingsPage.classList.contains('hidden')) {
           hideSettings();
@@ -2240,7 +2338,7 @@
     });
 
     // ============================================================
-    // WINDOW RESIZE HANDLER
+    // WINDOW RESIZE
     // ============================================================
     let resizeTimer;
     window.addEventListener('resize', () => {
@@ -2266,7 +2364,7 @@
     });
 
     // ============================================================
-    // ONLINE/OFFLINE HANDLERS
+    // ONLINE / OFFLINE
     // ============================================================
     window.addEventListener('online', () => showToast('Back online'));
     window.addEventListener('offline', () => showToast('You are offline'));
